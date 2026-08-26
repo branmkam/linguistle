@@ -115,7 +115,7 @@
     "nativeSpeakers": 77,
     "totalSpeakers": 85,
     "primaryCountries": "Vietnam",
-    "script": "Latin (Quốc ngữ)",
+    "script": "Latin",
     "isOfficialUN": "No",
     "iso639_3": "vie",
     "originContinent": "Asia"
@@ -595,7 +595,7 @@
   },
   {
     "languageName": "Lao",
-    "languageFamily": "Kra-Dai (Tai)",
+    "languageFamily": "Kra-Dai",
     "nativeSpeakers": 3.7,
     "totalSpeakers": 4.5,
     "primaryCountries": "Laos, Thailand, Cambodia",
@@ -621,7 +621,7 @@
     "nativeSpeakers": 13,
     "totalSpeakers": 17,
     "primaryCountries": "Kazakhstan, China, Uzbekistan, Russia",
-    "script": "Cyrillic",
+    "script": "Latin / Cyrillic",
     "isOfficialUN": "No",
     "iso639_3": "kaz",
     "originContinent": "Asia"

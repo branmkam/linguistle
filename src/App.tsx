@@ -31,8 +31,9 @@ function App() {
   const [guessedLangs, setGuessedLangs] = useState<Language[]>([]);
 
   // DO NOT CHANGE THE SEED VALUE
-  const shuffledLanguages = shuffleWithSeed(langs, 23);
-  const currentLang = shuffledLanguages[20]; // replace with UTC math
+  const shuffledLanguages = shuffleWithSeed(langs, 15);
+  const currentLang = shuffledLanguages[2]; // replace with UTC math
+  console.log(currentLang);
 
   const fullGuessedLangs = guessedLangs.map(
     (lang) => langs[langs.findIndex((l) => l.iso639_3 === lang.iso639_3)] || {},
@@ -55,7 +56,10 @@ function App() {
               setGuessedLangs([...guessedLangs, language])
             }
           />
-          <button onClick={() => setGuessedLangs([])} className="hover:cursor-pointer text-white rounded-3xl text-2xl bg-red-700 px-4 py-2">
+          <button
+            onClick={() => setGuessedLangs([])}
+            className="hover:cursor-pointer text-white rounded-3xl text-2xl bg-red-700 px-4 py-2"
+          >
             Give up
           </button>
         </div>

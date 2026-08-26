@@ -16,7 +16,7 @@ export const TableCell = ({
 
   return (
     <div
-      className={`${typeMap[type]} flex items-center justify-center p-2 text-xl ${type == "info" ? "h-16" : "h-24"} rounded-md w-full text-white`}
+      className={`${typeMap[type]} flex items-center justify-center p-2 text-xl ${type == "info" ? "h-28 md:h-16" : "h-24"} rounded-md w-full text-white`}
     >
       {children}
     </div>
