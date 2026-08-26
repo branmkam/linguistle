@@ -31,6 +31,9 @@ export function LangRow({
       <TableCell type={scriptChecker(language.script, currentLanguage.script)}>
         {language.script}
       </TableCell>
+      <TableCell type={language.originContinent === currentLanguage.originContinent ? "correct" : "incorrect"}>
+        {language.originContinent}
+      </TableCell>
     </>
   );
 }

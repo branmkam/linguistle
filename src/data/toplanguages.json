@@ -1,6 +1,5 @@
 [
   {
-    "rank": 1,
     "languageName": "Mandarin Chinese",
     "languageFamily": "Sino-Tibetan",
     "nativeSpeakers": 920,
@@ -8,10 +7,10 @@
     "primaryCountries": "China; Taiwan; Singapore",
     "script": "Chinese Characters",
     "isOfficialUN": "Yes",
-    "iso639_3": "zho"
+    "iso639_3": "zho",
+    "originContinent": "Asia"
   },
   {
-    "rank": 2,
     "languageName": "Spanish",
     "languageFamily": "Indo-European (Romance)",
     "nativeSpeakers": 475,
@@ -19,10 +18,10 @@
     "primaryCountries": "Mexico, Colombia, Spain, Argentina + 17 more",
     "script": "Latin",
     "isOfficialUN": "Yes",
-    "iso639_3": "spa"
+    "iso639_3": "spa",
+    "originContinent": "Europe"
   },
   {
-    "rank": 3,
     "languageName": "English",
     "languageFamily": "Indo-European (Germanic)",
     "nativeSpeakers": 380,
@@ -30,10 +29,10 @@
     "primaryCountries": "USA, UK, Australia, Canada, India + many more",
     "script": "Latin",
     "isOfficialUN": "Yes",
-    "iso639_3": "eng"
+    "iso639_3": "eng",
+    "originContinent": "Europe"
   },
   {
-    "rank": 4,
     "languageName": "Hindi",
     "languageFamily": "Indo-European (Indo-Aryan)",
     "nativeSpeakers": 345,
@@ -41,10 +40,10 @@
     "primaryCountries": "India, Nepal, Fiji",
     "script": "Devanagari",
     "isOfficialUN": "Yes",
-    "iso639_3": "hin"
+    "iso639_3": "hin",
+    "originContinent": "Asia"
   },
   {
-    "rank": 5,
     "languageName": "Bengali",
     "languageFamily": "Indo-European (Indo-Aryan)",
     "nativeSpeakers": 234,
@@ -52,10 +51,10 @@
     "primaryCountries": "Bangladesh, India (West Bengal)",
     "script": "Bengali",
     "isOfficialUN": "No",
-    "iso639_3": "ben"
+    "iso639_3": "ben",
+    "originContinent": "Asia"
   },
   {
-    "rank": 6,
     "languageName": "Portuguese",
     "languageFamily": "Indo-European (Romance)",
     "nativeSpeakers": 236,
@@ -63,10 +62,10 @@
     "primaryCountries": "Brazil, Portugal, Mozambique, Angola",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "por"
+    "iso639_3": "por",
+    "originContinent": "Europe"
   },
   {
-    "rank": 7,
     "languageName": "Russian",
     "languageFamily": "Indo-European (Slavic)",
     "nativeSpeakers": 147,
@@ -74,10 +73,10 @@
     "primaryCountries": "Russia, Belarus, Kazakhstan, Kyrgyzstan",
     "script": "Cyrillic",
     "isOfficialUN": "Yes",
-    "iso639_3": "rus"
+    "iso639_3": "rus",
+    "originContinent": "Europe"
   },
   {
-    "rank": 8,
     "languageName": "Urdu",
     "languageFamily": "Indo-European (Indo-Aryan)",
     "nativeSpeakers": 70,
@@ -85,10 +84,10 @@
     "primaryCountries": "Pakistan, India",
     "script": "Perso-Arabic",
     "isOfficialUN": "No",
-    "iso639_3": "urd"
+    "iso639_3": "urd",
+    "originContinent": "Asia"
   },
   {
-    "rank": 9,
     "languageName": "Japanese",
     "languageFamily": "Japonic",
     "nativeSpeakers": 125,
@@ -96,10 +95,10 @@
     "primaryCountries": "Japan",
     "script": "Kanji/Hiragana/Katakana",
     "isOfficialUN": "No",
-    "iso639_3": "jpn"
+    "iso639_3": "jpn",
+    "originContinent": "Asia"
   },
   {
-    "rank": 10,
     "languageName": "Yue Chinese (Cantonese)",
     "languageFamily": "Sino-Tibetan",
     "nativeSpeakers": 84,
@@ -107,10 +106,10 @@
     "primaryCountries": "China (Guangdong), Hong Kong, Macau",
     "script": "Chinese Characters",
     "isOfficialUN": "No",
-    "iso639_3": "yue"
+    "iso639_3": "yue",
+    "originContinent": "Asia"
   },
   {
-    "rank": 11,
     "languageName": "Vietnamese",
     "languageFamily": "Austroasiatic",
     "nativeSpeakers": 77,
@@ -118,10 +117,10 @@
     "primaryCountries": "Vietnam",
     "script": "Latin (Quốc ngữ)",
     "isOfficialUN": "No",
-    "iso639_3": "vie"
+    "iso639_3": "vie",
+    "originContinent": "Asia"
   },
   {
-    "rank": 12,
     "languageName": "Marathi",
     "languageFamily": "Indo-European (Indo-Aryan)",
     "nativeSpeakers": 83,
@@ -129,10 +128,10 @@
     "primaryCountries": "India (Maharashtra)",
     "script": "Devanagari",
     "isOfficialUN": "No",
-    "iso639_3": "mar"
+    "iso639_3": "mar",
+    "originContinent": "Asia"
   },
   {
-    "rank": 13,
     "languageName": "Telugu",
     "languageFamily": "Dravidian",
     "nativeSpeakers": 82,
@@ -140,10 +139,10 @@
     "primaryCountries": "India (Andhra Pradesh, Telangana)",
     "script": "Telugu",
     "isOfficialUN": "No",
-    "iso639_3": "tel"
+    "iso639_3": "tel",
+    "originContinent": "Asia"
   },
   {
-    "rank": 14,
     "languageName": "Wu Chinese (Shanghainese)",
     "languageFamily": "Sino-Tibetan",
     "nativeSpeakers": 80,
@@ -151,10 +150,10 @@
     "primaryCountries": "China (Shanghai, Zhejiang, Jiangsu)",
     "script": "Chinese Characters",
     "isOfficialUN": "No",
-    "iso639_3": "wuu"
+    "iso639_3": "wuu",
+    "originContinent": "Asia"
   },
   {
-    "rank": 15,
     "languageName": "Turkish",
     "languageFamily": "Turkic",
     "nativeSpeakers": 79,
@@ -162,10 +161,10 @@
     "primaryCountries": "Turkey, Northern Cyprus",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "tur"
+    "iso639_3": "tur",
+    "originContinent": "Asia"
   },
   {
-    "rank": 16,
     "languageName": "Korean",
     "languageFamily": "Koreanic",
     "nativeSpeakers": 77,
@@ -173,10 +172,10 @@
     "primaryCountries": "South Korea, North Korea",
     "script": "Hangul",
     "isOfficialUN": "No",
-    "iso639_3": "kor"
+    "iso639_3": "kor",
+    "originContinent": "Asia"
   },
   {
-    "rank": 17,
     "languageName": "Tamil",
     "languageFamily": "Dravidian",
     "nativeSpeakers": 75,
@@ -184,10 +183,10 @@
     "primaryCountries": "India (Tamil Nadu), Sri Lanka, Singapore",
     "script": "Tamil",
     "isOfficialUN": "No",
-    "iso639_3": "tam"
+    "iso639_3": "tam",
+    "originContinent": "Asia"
   },
   {
-    "rank": 18,
     "languageName": "French",
     "languageFamily": "Indo-European (Romance)",
     "nativeSpeakers": 76,
@@ -195,10 +194,10 @@
     "primaryCountries": "France, Canada (Quebec), DRC, many African nations",
     "script": "Latin",
     "isOfficialUN": "Yes",
-    "iso639_3": "fra"
+    "iso639_3": "fra",
+    "originContinent": "Europe"
   },
   {
-    "rank": 19,
     "languageName": "German",
     "languageFamily": "Indo-European (Germanic)",
     "nativeSpeakers": 76,
@@ -206,10 +205,10 @@
     "primaryCountries": "Germany, Austria, Switzerland",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "deu"
+    "iso639_3": "deu",
+    "originContinent": "Europe"
   },
   {
-    "rank": 20,
     "languageName": "Persian (Farsi)",
     "languageFamily": "Indo-European (Iranian)",
     "nativeSpeakers": 70,
@@ -217,10 +216,10 @@
     "primaryCountries": "Iran, Afghanistan (Dari), Tajikistan",
     "script": "Perso-Arabic",
     "isOfficialUN": "No",
-    "iso639_3": "fas"
+    "iso639_3": "fas",
+    "originContinent": "Asia"
   },
   {
-    "rank": 21,
     "languageName": "Hausa",
     "languageFamily": "Afro-Asiatic (Chadic)",
     "nativeSpeakers": 50,
@@ -228,10 +227,10 @@
     "primaryCountries": "Nigeria, Niger, Ghana",
     "script": "Latin / Ajami",
     "isOfficialUN": "No",
-    "iso639_3": "hau"
+    "iso639_3": "hau",
+    "originContinent": "Africa"
   },
   {
-    "rank": 22,
     "languageName": "Javanese",
     "languageFamily": "Austronesian",
     "nativeSpeakers": 68,
@@ -239,10 +238,10 @@
     "primaryCountries": "Indonesia (Java)",
     "script": "Latin / Javanese",
     "isOfficialUN": "No",
-    "iso639_3": "jav"
+    "iso639_3": "jav",
+    "originContinent": "Asia"
   },
   {
-    "rank": 23,
     "languageName": "Min Chinese (Hokkien/Fujianese)",
     "languageFamily": "Sino-Tibetan",
     "nativeSpeakers": 62,
@@ -250,10 +249,10 @@
     "primaryCountries": "China (Fujian), Taiwan, SE Asia",
     "script": "Chinese Characters",
     "isOfficialUN": "No",
-    "iso639_3": "nan"
+    "iso639_3": "nan",
+    "originContinent": "Asia"
   },
   {
-    "rank": 24,
     "languageName": "Italian",
     "languageFamily": "Indo-European (Romance)",
     "nativeSpeakers": 63,
@@ -261,10 +260,10 @@
     "primaryCountries": "Italy, Switzerland, San Marino",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "ita"
+    "iso639_3": "ita",
+    "originContinent": "Europe"
   },
   {
-    "rank": 25,
     "languageName": "Punjabi",
     "languageFamily": "Indo-European (Indo-Aryan)",
     "nativeSpeakers": 63,
@@ -272,10 +271,10 @@
     "primaryCountries": "India (Punjab), Pakistan (Punjab)",
     "script": "Gurmukhi / Shahmukhi",
     "isOfficialUN": "No",
-    "iso639_3": "pan"
+    "iso639_3": "pan",
+    "originContinent": "Asia"
   },
   {
-    "rank": 26,
     "languageName": "Gujarati",
     "languageFamily": "Indo-European (Indo-Aryan)",
     "nativeSpeakers": 55,
@@ -283,10 +282,10 @@
     "primaryCountries": "India (Gujarat), diaspora worldwide",
     "script": "Gujarati",
     "isOfficialUN": "No",
-    "iso639_3": "guj"
+    "iso639_3": "guj",
+    "originContinent": "Asia"
   },
   {
-    "rank": 27,
     "languageName": "Thai",
     "languageFamily": "Kra-Dai",
     "nativeSpeakers": 44,
@@ -294,10 +293,10 @@
     "primaryCountries": "Thailand",
     "script": "Thai",
     "isOfficialUN": "No",
-    "iso639_3": "tha"
+    "iso639_3": "tha",
+    "originContinent": "Asia"
   },
   {
-    "rank": 28,
     "languageName": "Kannada",
     "languageFamily": "Dravidian",
     "nativeSpeakers": 43,
@@ -305,10 +304,10 @@
     "primaryCountries": "India (Karnataka)",
     "script": "Kannada",
     "isOfficialUN": "No",
-    "iso639_3": "kan"
+    "iso639_3": "kan",
+    "originContinent": "Asia"
   },
   {
-    "rank": 29,
     "languageName": "Polish",
     "languageFamily": "Indo-European (Slavic)",
     "nativeSpeakers": 45,
@@ -316,10 +315,10 @@
     "primaryCountries": "Poland, diaspora",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "pol"
+    "iso639_3": "pol",
+    "originContinent": "Europe"
   },
   {
-    "rank": 30,
     "languageName": "Ukrainian",
     "languageFamily": "Indo-European (Slavic)",
     "nativeSpeakers": 31,
@@ -327,10 +326,10 @@
     "primaryCountries": "Ukraine",
     "script": "Cyrillic",
     "isOfficialUN": "No",
-    "iso639_3": "ukr"
+    "iso639_3": "ukr",
+    "originContinent": "Europe"
   },
   {
-    "rank": 31,
     "languageName": "Malayalam",
     "languageFamily": "Dravidian",
     "nativeSpeakers": 36,
@@ -338,10 +337,10 @@
     "primaryCountries": "India (Kerala)",
     "script": "Malayalam",
     "isOfficialUN": "No",
-    "iso639_3": "mal"
+    "iso639_3": "mal",
+    "originContinent": "Asia"
   },
   {
-    "rank": 32,
     "languageName": "Odia (Oriya)",
     "languageFamily": "Indo-European (Indo-Aryan)",
     "nativeSpeakers": 35,
@@ -349,10 +348,10 @@
     "primaryCountries": "India (Odisha)",
     "script": "Odia",
     "isOfficialUN": "No",
-    "iso639_3": "ory"
+    "iso639_3": "ory",
+    "originContinent": "Asia"
   },
   {
-    "rank": 33,
     "languageName": "Swahili (Kiswahili)",
     "languageFamily": "Niger-Congo (Bantu)",
     "nativeSpeakers": 16,
@@ -360,10 +359,10 @@
     "primaryCountries": "Tanzania, Kenya, Uganda, DRC",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "swa"
+    "iso639_3": "swa",
+    "originContinent": "Africa"
   },
   {
-    "rank": 34,
     "languageName": "Malay/Indonesian",
     "languageFamily": "Austronesian",
     "nativeSpeakers": 33,
@@ -371,10 +370,10 @@
     "primaryCountries": "Indonesia (Bahasa), Malaysia, Brunei, Singapore",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "msa/ind"
+    "iso639_3": "msa/ind",
+    "originContinent": "Asia"
   },
   {
-    "rank": 35,
     "languageName": "Dutch",
     "languageFamily": "Indo-European (Germanic)",
     "nativeSpeakers": 24,
@@ -382,10 +381,10 @@
     "primaryCountries": "Netherlands, Belgium (Flemish)",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "nld"
+    "iso639_3": "nld",
+    "originContinent": "Europe"
   },
   {
-    "rank": 36,
     "languageName": "Sinhala",
     "languageFamily": "Indo-European (Indo-Aryan)",
     "nativeSpeakers": 17,
@@ -393,10 +392,10 @@
     "primaryCountries": "Sri Lanka",
     "script": "Sinhala",
     "isOfficialUN": "No",
-    "iso639_3": "sin"
+    "iso639_3": "sin",
+    "originContinent": "Asia"
   },
   {
-    "rank": 37,
     "languageName": "Romanian",
     "languageFamily": "Indo-European (Romance)",
     "nativeSpeakers": 24,
@@ -404,10 +403,10 @@
     "primaryCountries": "Romania, Moldova",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "ron"
+    "iso639_3": "ron",
+    "originContinent": "Europe"
   },
   {
-    "rank": 38,
     "languageName": "Amharic",
     "languageFamily": "Afro-Asiatic (Semitic)",
     "nativeSpeakers": 22,
@@ -415,10 +414,10 @@
     "primaryCountries": "Ethiopia",
     "script": "Ge'ez (Ethiopic)",
     "isOfficialUN": "No",
-    "iso639_3": "amh"
+    "iso639_3": "amh",
+    "originContinent": "Africa"
   },
   {
-    "rank": 39,
     "languageName": "Somali",
     "languageFamily": "Afro-Asiatic (Cushitic)",
     "nativeSpeakers": 16,
@@ -426,10 +425,10 @@
     "primaryCountries": "Somalia, Ethiopia, Kenya, Djibouti",
     "script": "Latin / Osmanya",
     "isOfficialUN": "No",
-    "iso639_3": "som"
+    "iso639_3": "som",
+    "originContinent": "Africa"
   },
   {
-    "rank": 40,
     "languageName": "Yoruba",
     "languageFamily": "Niger-Congo",
     "nativeSpeakers": 40,
@@ -437,10 +436,10 @@
     "primaryCountries": "Nigeria, Benin, Togo",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "yor"
+    "iso639_3": "yor",
+    "originContinent": "Africa"
   },
   {
-    "rank": 41,
     "languageName": "Igbo",
     "languageFamily": "Niger-Congo",
     "nativeSpeakers": 24,
@@ -448,10 +447,10 @@
     "primaryCountries": "Nigeria",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "ibo"
+    "iso639_3": "ibo",
+    "originContinent": "Africa"
   },
   {
-    "rank": 42,
     "languageName": "Zulu",
     "languageFamily": "Niger-Congo (Bantu)",
     "nativeSpeakers": 12,
@@ -459,10 +458,10 @@
     "primaryCountries": "South Africa",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "zul"
+    "iso639_3": "zul",
+    "originContinent": "Africa"
   },
   {
-    "rank": 43,
     "languageName": "Xhosa",
     "languageFamily": "Niger-Congo (Bantu)",
     "nativeSpeakers": 9,
@@ -470,10 +469,10 @@
     "primaryCountries": "South Africa",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "xho"
+    "iso639_3": "xho",
+    "originContinent": "Africa"
   },
   {
-    "rank": 44,
     "languageName": "Afrikaans",
     "languageFamily": "Indo-European (Germanic)",
     "nativeSpeakers": 7,
@@ -481,10 +480,10 @@
     "primaryCountries": "South Africa, Namibia",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "afr"
+    "iso639_3": "afr",
+    "originContinent": "Africa"
   },
   {
-    "rank": 45,
     "languageName": "Greek",
     "languageFamily": "Indo-European (Hellenic)",
     "nativeSpeakers": 13,
@@ -492,10 +491,10 @@
     "primaryCountries": "Greece, Cyprus",
     "script": "Greek",
     "isOfficialUN": "No",
-    "iso639_3": "ell"
+    "iso639_3": "ell",
+    "originContinent": "Europe"
   },
   {
-    "rank": 46,
     "languageName": "Czech",
     "languageFamily": "Indo-European (Slavic)",
     "nativeSpeakers": 10,
@@ -503,10 +502,10 @@
     "primaryCountries": "Czech Republic",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "ces"
+    "iso639_3": "ces",
+    "originContinent": "Europe"
   },
   {
-    "rank": 47,
     "languageName": "Hungarian",
     "languageFamily": "Uralic",
     "nativeSpeakers": 12,
@@ -514,10 +513,10 @@
     "primaryCountries": "Hungary, Romania",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "hun"
+    "iso639_3": "hun",
+    "originContinent": "Europe"
   },
   {
-    "rank": 48,
     "languageName": "Swedish",
     "languageFamily": "Indo-European (Germanic)",
     "nativeSpeakers": 10,
@@ -525,10 +524,10 @@
     "primaryCountries": "Sweden, Finland",
     "script": "Latin",
     "isOfficialUN": "No",
-    "iso639_3": "swe"
+    "iso639_3": "swe",
+    "originContinent": "Europe"
   },
   {
-    "rank": 49,
     "languageName": "Hebrew",
     "languageFamily": "Afro-Asiatic (Semitic)",
     "nativeSpeakers": 5,
@@ -536,10 +535,10 @@
     "primaryCountries": "Israel",
     "script": "Hebrew",
     "isOfficialUN": "No",
-    "iso639_3": "heb"
+    "iso639_3": "heb",
+    "originContinent": "Asia"
   },
   {
-    "rank": 50,
     "languageName": "Arabic (Modern Standard)",
     "languageFamily": "Afro-Asiatic (Semitic)",
     "nativeSpeakers": 0,
@@ -547,6 +546,172 @@
     "primaryCountries": "22 Arab nations (as lingua franca)",
     "script": "Arabic",
     "isOfficialUN": "Yes",
-    "iso639_3": "arb"
+    "iso639_3": "arb",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Guarani",
+    "languageFamily": "Tupian (Tupi-Guarani)",
+    "nativeSpeakers": 6.5,
+    "totalSpeakers": 7,
+    "primaryCountries": "Paraguay, Brazil, Bolivia, Argentina",
+    "script": "Latin",
+    "isOfficialUN": "No",
+    "iso639_3": "gug",
+    "originContinent": "South America"
+  },
+  {
+    "languageName": "Tagalog (Filipino)",
+    "languageFamily": "Austronesian",
+    "nativeSpeakers": 33,
+    "totalSpeakers": 87,
+    "primaryCountries": "Philippines",
+    "script": "Latin",
+    "isOfficialUN": "No",
+    "iso639_3": "tgl",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Burmese",
+    "languageFamily": "Sino-Tibetan (Tibeto-Burman)",
+    "nativeSpeakers": 33,
+    "totalSpeakers": 43,
+    "primaryCountries": "Myanmar, Thailand, Bangladesh",
+    "script": "Myanmar",
+    "isOfficialUN": "No",
+    "iso639_3": "mya",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Khmer (Cambodian)",
+    "languageFamily": "Austroasiatic",
+    "nativeSpeakers": 19,
+    "totalSpeakers": 21,
+    "primaryCountries": "Cambodia, Thailand, Vietnam",
+    "script": "Khmer",
+    "isOfficialUN": "No",
+    "iso639_3": "khm",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Lao",
+    "languageFamily": "Kra-Dai (Tai)",
+    "nativeSpeakers": 3.7,
+    "totalSpeakers": 4.5,
+    "primaryCountries": "Laos, Thailand, Cambodia",
+    "script": "Lao",
+    "isOfficialUN": "No",
+    "iso639_3": "lao",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Mongolian",
+    "languageFamily": "Mongolic",
+    "nativeSpeakers": 6,
+    "totalSpeakers": 6,
+    "primaryCountries": "Mongolia, China (Inner Mongolia)",
+    "script": "Cyrillic",
+    "isOfficialUN": "No",
+    "iso639_3": "khk",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Kazakh",
+    "languageFamily": "Turkic (Kipchak)",
+    "nativeSpeakers": 13,
+    "totalSpeakers": 17,
+    "primaryCountries": "Kazakhstan, China, Uzbekistan, Russia",
+    "script": "Cyrillic",
+    "isOfficialUN": "No",
+    "iso639_3": "kaz",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Uzbek",
+    "languageFamily": "Turkic (Karluk)",
+    "nativeSpeakers": 33,
+    "totalSpeakers": 36,
+    "primaryCountries": "Uzbekistan, Afghanistan, Tajikistan, Kazakhstan",
+    "script": "Latin",
+    "isOfficialUN": "No",
+    "iso639_3": "uzb",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Armenian",
+    "languageFamily": "Indo-European (Armenian)",
+    "nativeSpeakers": 4,
+    "totalSpeakers": 6,
+    "primaryCountries": "Armenia, diaspora worldwide, Turkey, Iran",
+    "script": "Armenian",
+    "isOfficialUN": "No",
+    "iso639_3": "hye",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Georgian",
+    "languageFamily": "Kartvelian",
+    "nativeSpeakers": 4,
+    "totalSpeakers": 4,
+    "primaryCountries": "Georgia, diaspora",
+    "script": "Georgian",
+    "isOfficialUN": "No",
+    "iso639_3": "kat",
+    "originContinent": "Asia"
+  },
+  {
+    "languageName": "Catalan",
+    "languageFamily": "Indo-European (Romance)",
+    "nativeSpeakers": 5,
+    "totalSpeakers": 9,
+    "primaryCountries": "Spain (Catalonia, Valencia, Balearics), Andorra, France",
+    "script": "Latin",
+    "isOfficialUN": "No",
+    "iso639_3": "cat",
+    "originContinent": "Europe"
+  },
+  {
+    "languageName": "Welsh",
+    "languageFamily": "Indo-European (Celtic)",
+    "nativeSpeakers": 0.88,
+    "totalSpeakers": 1.1,
+    "primaryCountries": "Wales (UK), diaspora",
+    "script": "Latin",
+    "isOfficialUN": "No",
+    "iso639_3": "cym",
+    "originContinent": "Europe"
+  },
+  {
+    "languageName": "Lithuanian",
+    "languageFamily": "Indo-European (Baltic)",
+    "nativeSpeakers": 2.8,
+    "totalSpeakers": 3,
+    "primaryCountries": "Lithuania, diaspora",
+    "script": "Latin",
+    "isOfficialUN": "No",
+    "iso639_3": "lit",
+    "originContinent": "Europe"
+  },
+  {
+    "languageName": "Slovenian",
+    "languageFamily": "Indo-European (Slavic)",
+    "nativeSpeakers": 2.1,
+    "totalSpeakers": 2.4,
+    "primaryCountries": "Slovenia, Croatia, Italy, Hungary",
+    "script": "Latin",
+    "isOfficialUN": "No",
+    "iso639_3": "slv",
+    "originContinent": "Europe"
+  },
+  {
+    "languageName": "Croatian",
+    "languageFamily": "Indo-European (Slavic)",
+    "nativeSpeakers": 4,
+    "totalSpeakers": 4,
+    "primaryCountries": "Croatia, Bosnia and Herzegovina, Serbia",
+    "script": "Latin",
+    "isOfficialUN": "No",
+    "iso639_3": "hrv",
+    "originContinent": "Europe"
   }
 ]
