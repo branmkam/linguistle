@@ -1,0 +1,15 @@
+import { Link } from "react-router-dom";
+import { Button } from "./Button";
+
+export default function ArchiveCard({ day }: { day: number }) {
+  return (
+    <div className="border flex justify-between items-center gap-4 p-4 rounded-lg shadow-md">
+      <h3 className="font-bold text-2xl md:text-4xl">#{day}</h3>
+      <Link to={`/archive/${day}`}>
+        <Button className="bg-blue-600 text-white w-20 md:text-xl h-10">
+          Play
+        </Button>
+      </Link>
+    </div>
+  );
+}

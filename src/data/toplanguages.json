@@ -93,7 +93,7 @@
     "nativeSpeakers": 125,
     "totalSpeakers": 130,
     "primaryCountries": "Japan",
-    "script": "Kanji/Hiragana/Katakana",
+    "script": "Kanji / Hiragana / Katakana",
     "isOfficialUN": "No",
     "iso639_3": "jpn",
     "originContinent": "Asia"
@@ -242,7 +242,7 @@
     "originContinent": "Asia"
   },
   {
-    "languageName": "Min Chinese (Hokkien/Fujianese)",
+    "languageName": "Min Chinese (Hokkien/ Fujianese)",
     "languageFamily": "Sino-Tibetan",
     "nativeSpeakers": 62,
     "totalSpeakers": 75,
@@ -363,7 +363,7 @@
     "originContinent": "Africa"
   },
   {
-    "languageName": "Malay/Indonesian",
+    "languageName": "Malay/ Indonesian",
     "languageFamily": "Austronesian",
     "nativeSpeakers": 33,
     "totalSpeakers": 270,

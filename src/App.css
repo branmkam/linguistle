@@ -1,6 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Homenaje:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ultra&display=swap");
 @import "tailwindcss";
 
 @theme {
   --font-homenaje: "Homenaje", sans-serif;
+  --font-ultra: "Ultra", serif;
+}
+
+@keyframes table-cell-flip {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateX(-90deg);
+  }
+  60% {
+    transform: perspective(400px) rotateX(12deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0deg);
+  }
 }

@@ -16,22 +16,42 @@ export function LangRow({
 }) {
   return (
     <>
-      <TableCell type={language.languageName === currentLanguage.languageName ? "correct" : "incorrect"}>{language.languageName}</TableCell>
-      <TableCell type={familyChecker(language.languageFamily, currentLanguage.languageFamily)}>
+      <TableCell
+        type={language.languageName === currentLanguage.languageName ? "correct" : "incorrect"}
+        animationPlace={1}
+      >
+        {language.languageName}
+      </TableCell>
+      <TableCell
+        type={familyChecker(language.languageFamily, currentLanguage.languageFamily)}
+        animationPlace={2}
+      >
         {language.languageFamily}
       </TableCell>
-      <TableCell type={numberChecker(language.nativeSpeakers, currentLanguage.nativeSpeakers)}>
+      <TableCell
+        type={numberChecker(language.nativeSpeakers, currentLanguage.nativeSpeakers)}
+        animationPlace={3}
+      >
         {language.nativeSpeakers}{" "}
         {numberArrow(language.nativeSpeakers, currentLanguage.nativeSpeakers)}
       </TableCell>
-      <TableCell type={numberChecker(language.totalSpeakers, currentLanguage.totalSpeakers)}>
+      <TableCell
+        type={numberChecker(language.totalSpeakers, currentLanguage.totalSpeakers)}
+        animationPlace={4}
+      >
         {language.totalSpeakers}{" "}
         {numberArrow(language.totalSpeakers, currentLanguage.totalSpeakers)}
       </TableCell>
-      <TableCell type={scriptChecker(language.script, currentLanguage.script)}>
+      <TableCell
+        type={scriptChecker(language.script, currentLanguage.script)}
+        animationPlace={5}
+      >
         {language.script}
       </TableCell>
-      <TableCell type={language.originContinent === currentLanguage.originContinent ? "correct" : "incorrect"}>
+      <TableCell
+        type={language.originContinent === currentLanguage.originContinent ? "correct" : "incorrect"}
+        animationPlace={6}
+      >
         {language.originContinent}
       </TableCell>
     </>

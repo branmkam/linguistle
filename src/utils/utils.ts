@@ -31,7 +31,7 @@ export function score(guessedLangs: Language[], currentLang: Language): number {
   // if correct
   const latestGuess = guessedLangs[guessedLangs.length - 1];
   if (latestGuess.languageName === currentLang.languageName) {
-    return 1 - 0.02 * guessedLangs.length;
+    return 102 - 2 * guessedLangs.length;
   }
 
   // if not correct
@@ -43,6 +43,9 @@ export function score(guessedLangs: Language[], currentLang: Language): number {
     numberChecker(latestGuess.nativeSpeakers, currentLang.nativeSpeakers),
     numberChecker(latestGuess.totalSpeakers, currentLang.totalSpeakers),
     scriptChecker(latestGuess.script, currentLang.script),
+    latestGuess.originContinent === currentLang.originContinent
+      ? "correct"
+      : "incorrect",
   ];
 
   const total = checks.reduce((sum, result) => {
@@ -50,6 +53,6 @@ export function score(guessedLangs: Language[], currentLang: Language): number {
     if (result === "partial") return sum + 0.5;
     return sum;
   }, 0);
-
-  return (total / 5) * (100 - 4 * guessedLangs.length);
+  
+  return (total / 5) * (102 - 4 * guessedLangs.length);
 }
