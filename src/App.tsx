@@ -1,43 +1,26 @@
 import "./App.css";
 import { useState } from "react";
 import langs from "./data/toplanguages.json";
-import { TableCell, LangRow, LangSearch } from "./components";
+import { Modal, TableCell, LangRow, LangSearch } from "./components";
 import type { Language } from "./utils/types";
-
-function seededRandom(seed: number) {
-  let value = seed >>> 0;
-
-  return () => {
-    value = (value + 0x6d2b79f5) >>> 0;
-    let t = Math.imul(value ^ (value >>> 15), 1 | value);
-    t = ((t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t) >>> 0;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function shuffleWithSeed<T>(items: T[], seed: number): T[] {
-  const array = [...items];
-  const next = seededRandom(seed);
-
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(next() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-
-  return array;
-}
+import { score, shuffleWithSeed } from "./utils/utils";
 
 function App() {
   const [guessedLangs, setGuessedLangs] = useState<Language[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   // DO NOT CHANGE THE SEED VALUE
   const shuffledLanguages = shuffleWithSeed(langs, 15);
-  const currentLang = shuffledLanguages[2]; // replace with UTC math
+  const currentLang = shuffledLanguages[25]; // replace with UTC math
   console.log(currentLang);
 
   const fullGuessedLangs = guessedLangs.map(
     (lang) => langs[langs.findIndex((l) => l.iso639_3 === lang.iso639_3)] || {},
   );
+  const currentScore = score(guessedLangs, currentLang);
+  const foundLanguage = guessedLangs
+    .map((lang) => lang.iso639_3)
+    .includes(currentLang.iso639_3);
 
   return (
     <div className="font-homenaje text-center">
@@ -52,12 +35,20 @@ function App() {
         <div className="flex gap-8 justify-center">
           <LangSearch
             languages={langs}
-            onSelect={(language) =>
-              setGuessedLangs([...guessedLangs, language])
-            }
+            onSelect={(language) => {
+              setGuessedLangs([...guessedLangs, language]);
+              if (
+                language.iso639_3 === currentLang.iso639_3 ||
+                guessedLangs.length >= 7
+              ) {
+                setShowModal(true);
+              }
+            }}
           />
           <button
-            onClick={() => setGuessedLangs([])}
+            onClick={() => {
+              setShowModal(true);
+            }}
             className="hover:cursor-pointer text-white rounded-3xl text-2xl bg-red-700 px-4 py-2"
           >
             Give up
@@ -79,6 +70,61 @@ function App() {
           ))}
         </div>
       </div>
+
+      {/* Modal Section */}
+      {showModal && (
+        <Modal>
+          <h2 className="text-2xl mb-4">LINGUISTLE</h2>
+          <p>The correct answer was: {currentLang.languageName}</p>
+
+          <div
+            className={`mt-4 flex items-center justify-center gap-3 rounded-xl px-4 py-3 text-xl font-bold ${
+              foundLanguage
+                ? "bg-green-500 text-white"
+                : "bg-red-500 text-white"
+            }`}
+          >
+            {foundLanguage ? (
+              <>
+                <span>Score: {currentScore.toFixed(0)}</span>
+                <span className="text-lg">|</span>
+                <span>{guessedLangs.length} guesses</span>
+              </>
+            ) : (
+              <>
+                <span>Score: {currentScore.toFixed(0)}</span>
+              </>
+            )}
+          </div>
+
+          <div className="mt-4 flex gap-4 justify-center">
+            <button
+              onClick={() => {
+                setShowModal(false);
+                setGuessedLangs([]);
+              }}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-xl"
+            >
+              Close
+            </button>
+            <button
+              onClick={async () => {
+                const shareText = foundLanguage
+                  ? `LINGUISTLE ${new Date().toLocaleDateString()} — Score: ${currentScore.toFixed(0)} 🟩 — solved in ${guessedLangs.length} guesses`
+                  : `LINGUISTLE ${new Date().toLocaleDateString()} — Score: ${currentScore.toFixed(0)} 🟥`;
+                try {
+                  await navigator.clipboard.writeText(shareText);
+                } catch {
+                  // no-op for clipboard issues
+                }
+              }}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-xl"
+            >
+              Share
+            </button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

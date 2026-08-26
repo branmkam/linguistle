@@ -155,7 +155,7 @@
   },
   {
     "languageName": "Turkish",
-    "languageFamily": "Turkic",
+    "languageFamily": "Turkic (Oghuz)",
     "nativeSpeakers": 79,
     "totalSpeakers": 88,
     "primaryCountries": "Turkey, Northern Cyprus",
@@ -430,7 +430,7 @@
   },
   {
     "languageName": "Yoruba",
-    "languageFamily": "Niger-Congo",
+    "languageFamily": "Niger-Congo (Benue-Congo)",
     "nativeSpeakers": 40,
     "totalSpeakers": 50,
     "primaryCountries": "Nigeria, Benin, Togo",
@@ -441,7 +441,7 @@
   },
   {
     "languageName": "Igbo",
-    "languageFamily": "Niger-Congo",
+    "languageFamily": "Niger-Congo (Benue-Congo)",
     "nativeSpeakers": 24,
     "totalSpeakers": 27,
     "primaryCountries": "Nigeria",
