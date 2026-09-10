@@ -77,6 +77,6 @@ export const familyChecker = (value: string, target: string) => {
 
 export const distanceChecker = (distanceKm: number) => {
   if (distanceKm === 0) return "correct";
-  if (distanceKm <= 1000) return "partial";
+  if (distanceKm <= 2000) return "partial";
   return "incorrect";
 };

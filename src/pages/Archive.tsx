@@ -3,7 +3,7 @@ import langs from "../data/toplanguages.json";
 
 export default function Archive() {
   const dayMs = 24 * 60 * 60 * 1000;
-  const startDate = new Date(Date.UTC(2026, 7, 11)); // 26 Aug 2026
+  const startDate = new Date(Date.UTC(2026, 8, 1)); // 26 Aug 2026
   const daysPast = Math.floor((new Date().getTime() - startDate.getTime()) / dayMs);
   const currentIndex = Math.abs(daysPast) % langs.length;
 

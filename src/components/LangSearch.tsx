@@ -39,7 +39,7 @@ export function LangSearch({
 
       {filteredLanguages.length > 0 && (
         <ul className="absolute z-40 max-h-64 w-full overflow-y-auto rounded-md border border-gray-700 bg-gray-900 text-left shadow-lg">
-          {filteredLanguages.sort((a, b) => b.nativeSpeakers - a.nativeSpeakers).slice(0, 5).map((language) => {
+          {filteredLanguages.sort((a, b) => b.nativeSpeakers - a.nativeSpeakers).map((language) => {
             const isGuessed = guessedIsos.includes(language.iso639_3);
             return (
               <li key={language.iso639_3}>
