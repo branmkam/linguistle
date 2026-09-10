@@ -1,5 +1,6 @@
 import type { Language } from "./types";
-import { familyChecker, numberChecker, scriptChecker } from "./checkers";
+import { familyChecker, numberChecker, distanceChecker } from "./checkers";
+import { haversineKm } from "./haversine";
 
 function seededRandom(seed: number) {
   let value = seed >>> 0;
@@ -33,26 +34,26 @@ export function score(guessedLangs: Language[], currentLang: Language): number {
   if (latestGuess.languageName === currentLang.languageName) {
     return 102 - 2 * guessedLangs.length;
   }
+  // if not correct: evaluate family, native speakers, macroarea, and distance
+  const fam = familyChecker(latestGuess.languageFamily, currentLang.languageFamily);
+  const native = numberChecker(latestGuess.nativeSpeakers, currentLang.nativeSpeakers);
+  const macro = (latestGuess.originContinent === currentLang.originContinent) ? "correct" : "incorrect";
 
-  // if not correct
-  const checks = [
-    latestGuess.languageName === currentLang.languageName
-      ? "correct"
-      : "incorrect",
-    familyChecker(latestGuess.languageFamily, currentLang.languageFamily),
-    numberChecker(latestGuess.nativeSpeakers, currentLang.nativeSpeakers),
-    numberChecker(latestGuess.totalSpeakers, currentLang.totalSpeakers),
-    scriptChecker(latestGuess.script, currentLang.script),
-    latestGuess.originContinent === currentLang.originContinent
-      ? "correct"
-      : "incorrect",
-  ];
+  const lat1 = latestGuess.latitude ?? 0;
+  const lon1 = latestGuess.longitude ?? 0;
+  const lat2 = currentLang.latitude ?? 0;
+  const lon2 = currentLang.longitude ?? 0;
+
+  const distanceKm = haversineKm(lat1, lon1, lat2, lon2);
+  const distCheck = distanceChecker(Math.round(distanceKm));
+
+  const checks = [fam, native, macro, distCheck];
 
   const total = checks.reduce((sum, result) => {
     if (result === "correct") return sum + 1;
     if (result === "partial") return sum + 0.5;
     return sum;
   }, 0);
-  
-  return (total / 5) * (102 - 4 * guessedLangs.length);
+
+  return (total / checks.length) * (102 - 4 * guessedLangs.length);
 }
