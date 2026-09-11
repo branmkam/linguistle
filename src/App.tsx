@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons/faQuestionCircle";
+import { GameStats } from "./components/GameStats";
 
 function ArchivedGame() {
   const { day } = useParams();
@@ -53,12 +54,38 @@ function App() {
               />
               <Route path="/archive" element={<Archive />} />
               <Route path="/archive/:day" element={<ArchivedGame />} />
+              <Route
+                path="/help"
+                element={
+                  <div className="p-6">
+                    Stats
+                    <GameStats />
+                  </div>
+                }
+              />
             </Routes>
           </div>
           {/* footer */}
           <div className="font-ultra fixed bottom-0 left-0 w-full z-50 text-sm h-7 flex justify-center px-4 gap-4 items-center text-white bg-gray-800">
             <div>
-            by <a rel="noreferrer" target="_blank" className="underline hover:text-purple-300" href="https://www.instagram.com/brankam.gg">brankam.gg</a> | <a rel="noreferrer" target="_blank" className="underline hover:text-purple-300" href="mailto:brankamgg@gmail.com">Contact</a>
+              by{" "}
+              <a
+                rel="noreferrer"
+                target="_blank"
+                className="underline hover:text-purple-300"
+                href="https://www.instagram.com/brankam.gg"
+              >
+                brankam.gg
+              </a>{" "}
+              |{" "}
+              <a
+                rel="noreferrer"
+                target="_blank"
+                className="underline hover:text-purple-300"
+                href="mailto:brankamgg@gmail.com"
+              >
+                Contact
+              </a>
             </div>
           </div>
         </div>

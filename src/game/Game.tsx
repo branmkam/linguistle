@@ -19,7 +19,7 @@ export default function Game({ day }: { day: number }) {
   const [hasGivenUp, setHasGivenUp] = useState(false);
 
   // map the withFamily dataset to the app's Language shape
-  const langsFull = (raw as any[]).map((item) => ({
+  const langsFull = (raw).map((item) => ({
     languageName: item.Name || item.languageLabel || item.language || "",
     languageFamily: item.path || item.classification || item.top_family || "",
     familyDisplay: item.top_family || item.first_subfamily || "",

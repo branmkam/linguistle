@@ -15,3 +15,4 @@ export type Language = {
 };
 
 export type AnswerType = 'correct' | 'incorrect' | 'partial' | 'info';
+
