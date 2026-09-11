@@ -48,7 +48,7 @@ export default function Game({ day }: { day: number }) {
     .map((lang) => lang.iso639_3)
     .includes(currentLang.iso639_3);
 
-  const gameOver = foundLanguage || guessedLangs.length >= 7 || hasGivenUp;
+  const gameOver = foundLanguage || guessedLangs.length >= 8 || hasGivenUp;
   const wikiName = currentLang.languageName
     .replace(/\s*\([^)]*\)\s*/g, "") // remove parentheses and contents
     .trim()
@@ -86,7 +86,7 @@ export default function Game({ day }: { day: number }) {
 
                   if (
                     language.iso639_3 === currentLang.iso639_3 ||
-                    nextGuesses.length >= 7
+                    nextGuesses.length >= 8
                   ) {
                     setShowModal(true);
                   }
