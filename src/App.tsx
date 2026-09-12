@@ -2,6 +2,8 @@ import "./App.css";
 import Homepage from "./pages/Homepage";
 import Archive from "./pages/Archive";
 import Game from "./game/Game";
+import LoginSignup from "./pages/LoginSignup";
+import { useState } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -12,6 +14,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons/faQuestionCircle";
 import { GameStats } from "./components/GameStats";
+import Account from "./pages/Account";
 
 function ArchivedGame() {
   const { day } = useParams();
@@ -21,6 +24,8 @@ function ArchivedGame() {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
       <div className="w-full min-h-screen bg-gray-100">
@@ -30,7 +35,7 @@ function App() {
             <Link to="/" className="font-ultra hover:text-red-200">
               Linguistle
             </Link>
-            <div className="flex gap-4 text-base md:text-lg">
+            <div className="flex gap-4 text-base md:text-lg items-center">
               <Link to="/help" className="hover:text-red-200">
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </Link>
@@ -39,6 +44,9 @@ function App() {
               </Link>
               <Link to="/archive" className="hover:text-red-200">
                 Archive
+              </Link>
+              <Link to={isLoggedIn ? "/account" : "/signup"} className="hover:text-red-200">
+                {isLoggedIn ? "Account" : "Log In"}
               </Link>
             </div>
           </div>
@@ -54,6 +62,11 @@ function App() {
               />
               <Route path="/archive" element={<Archive />} />
               <Route path="/archive/:day" element={<ArchivedGame />} />
+              <Route path="/signup" element={<LoginSignup setLoggedIn={setIsLoggedIn} />} />
+              <Route
+                path="/account"
+                element={<Account setLoggedIn={setIsLoggedIn} />}
+              />
               <Route
                 path="/help"
                 element={
