@@ -92,8 +92,8 @@ function App() {
           <div className="pt-12">
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/normal" element={<DailyGame mode="normal" />} />
-              <Route path="/hard" element={<DailyGame mode="hard" />} />
+              <Route path="/daily/normal" element={<DailyGame mode="normal" />} />
+              <Route path="/daily/hard" element={<DailyGame mode="hard" />} />
               <Route
                 path="/about"
                 element={<div className="p-6">About page (coming soon)</div>}

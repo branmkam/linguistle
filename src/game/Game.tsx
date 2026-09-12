@@ -144,7 +144,7 @@ export default function Game({
     .replace(/\s+/g, "_");
 
   return (
-    <div className="flex flex-col justify-center min-w-90 max-w-300 gap-4 h-full m-4">
+    <div className="flex flex-col justify-center min-w-90 max-w-300 gap-4 h-full m-4 pb-8">
       <div className="flex gap-6 justify-center items-center sticky top-12 z-50 py-2 bg-gray-100 w-full">
         <h1 className="font-ultra text-xl md:text-3xl">#{day}</h1>
         {gameOver ? (
