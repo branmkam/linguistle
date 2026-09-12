@@ -1,10 +1,25 @@
-import Game from "../game/Game";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 export default function Homepage() {
-  const dayMs = 24 * 60 * 60 * 1000;
-  const startDate = new Date(Date.UTC(2026, 8, 1));
-  const daysPast = Math.floor((Date.now() - startDate.getTime()) / dayMs);
-  const day = Math.abs(daysPast);
+  const navigate = useNavigate();
 
-  return <Game day={day} />;
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <Button
+          onClick={() => navigate("/daily/hard")}
+          className="bg-red-700 px-6 py-3 text-white md:text-2xl"
+        >
+          Play Hard
+        </Button>
+        <Button
+          onClick={() => navigate("/daily/normal")}
+          className="bg-blue-700 px-6 py-3 text-white md:text-2xl"
+        >
+          Play Normal
+        </Button>
+      </div>
+    </div>
+  );
 }

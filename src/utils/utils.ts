@@ -57,3 +57,10 @@ export function score(guessedLangs: Language[], currentLang: Language): number {
 
   return (total / checks.length) * (102 - 4 * guessedLangs.length);
 }
+
+export function getCurrentDay(): number {
+  const dayMs = 24 * 60 * 60 * 1000;
+  const startDate = new Date(Date.UTC(2026, 8, 1));
+  const daysPast = Math.floor((Date.now() - startDate.getTime()) / dayMs);
+  return Math.abs(daysPast);
+}
