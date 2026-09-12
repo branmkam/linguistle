@@ -108,7 +108,7 @@ export default function LoginSignup({
 
     const result = await signUpNewUser(email, password, username, setUser);
     if (!result.error) {
-      navigate("/");
+      navigate("/verify-email");
     }
   };
 
@@ -151,7 +151,7 @@ export default function LoginSignup({
       {passwordValidationMessage && (
         <p className="text-red-500 text-sm">{passwordValidationMessage}</p>
       )}
-      <Button onClick={handleSubmit}>
+      <Button className="bg-blue-500 px-4 py-2 text-white rounded hover:bg-blue-600" onClick={handleSubmit}>
         {isLogin ? "Login" : "Sign Up"}
       </Button>
       <p

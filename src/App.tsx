@@ -163,6 +163,21 @@ function App() {
                   </div>
                 }
               />
+              <Route
+                path="/verify-email"
+                element={
+                  <div className="p-6">
+                    <p>
+                      Your account creation was successful, but please verify your email address. Once you have done so,
+                      you can access your account.
+                    </p>
+                    <p>
+                      Once you have verified, close this window or{" "}
+                      <Link className="text-blue-500 hover:text-blue-700" to="/login">navigate to the login page</Link>.
+                    </p>
+                  </div>
+                }
+              />
             </Routes>
           </div>
           {/* footer */}
