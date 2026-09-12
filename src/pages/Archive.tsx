@@ -11,7 +11,7 @@ export default function Archive() {
     <div className="m-4 flex flex-col gap-4">
       <h1 className="text-xl font-ultra md:text-3xl">Archive Page</h1>
       <h2 className="text-lg font-bold md:text-2xl">
-        Play the previous 10 rounds (totally free!)
+        Play the previous 10 normal rounds (totally free!)
       </h2>
       <p className="text-md md:text-lg">
         If you're new here, get some practice. If not, play a recent round you

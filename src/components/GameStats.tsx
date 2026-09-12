@@ -11,11 +11,11 @@ export function GameStats() {
   return (
     <div>
       <h2>Your Stats</h2>
-      <p>Games: {stats?.totalGames}</p>
-      <p>Wins: {stats?.wins}</p>
-      <p>Win Rate: {stats?.winRate}%</p>
-      <p>Current Streak: {stats?.currentStreak}</p>
-      <p>Average Guesses: {stats?.averageGuesses}</p>
+      <p>Games: {stats?.totalGames || 0}</p>
+      <p>Wins: {stats?.wins || 0}</p>
+      <p>Win Rate: {stats?.winRate || 0}%</p>
+      <p>Current Streak: {stats?.currentStreak || 0}</p>
+      <p>Average Guesses: {stats?.averageGuesses || 0}</p>
     </div>
   );
 }

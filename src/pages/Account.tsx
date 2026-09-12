@@ -1,40 +1,14 @@
-import { useEffect, useState } from "react";
 import { Button } from "../components";
 import { supabase } from "../../supabase/supabase";
+import type { User } from "@supabase/supabase-js";
+import { Link } from "react-router-dom";
 
 type AccountProps = {
-  setLoggedIn: (loggedIn: boolean) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
 };
 
-export default function Account({ setLoggedIn }: AccountProps) {
-  const [user, setUser] = useState<{
-    email?: string;
-    user_metadata?: {
-      username?: string;
-      display_name?: string;
-    };
-  } | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchUser() {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-
-      if (error) {
-        console.error(error.message);
-      }
-
-      setUser(user);
-      setLoggedIn(Boolean(user));
-      setLoading(false);
-    }
-
-    fetchUser();
-  }, [setLoggedIn]);
-
+export default function Account({ user, setUser }: AccountProps) {
   async function handleSignOut() {
     const { error } = await supabase.auth.signOut();
 
@@ -43,7 +17,7 @@ export default function Account({ setLoggedIn }: AccountProps) {
       return;
     }
 
-    setLoggedIn(false);
+    setUser(null);
   }
 
   const displayName =
@@ -55,8 +29,8 @@ export default function Account({ setLoggedIn }: AccountProps) {
   return (
     <div className="justify-center items-center flex-col flex gap-4">
       <h1 className="text-xl font-ultra md:text-3xl">Account Page</h1>
-      <p>User: {loading ? "Loading..." : displayName}</p>
-      <Button onClick={handleSignOut}>Sign Out</Button>
+      <p>User: {displayName}</p>
+      <Button onClick={handleSignOut}><Link to="/login">Sign Out</Link></Button>
     </div>
   );
 }

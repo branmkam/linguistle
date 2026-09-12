@@ -3,7 +3,9 @@ import Homepage from "./pages/Homepage";
 import Archive from "./pages/Archive";
 import Game from "./game/Game";
 import LoginSignup from "./pages/LoginSignup";
-import { useState } from "react";
+import { getCurrentDay } from "./utils/utils";
+import { useEffect, useState } from "react";
+import { supabase } from "../supabase/supabase";
 import {
   BrowserRouter,
   Routes,
@@ -15,16 +17,47 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons/faQuestionCircle";
 import { GameStats } from "./components/GameStats";
 import Account from "./pages/Account";
+import type { User } from "@supabase/supabase-js";
 
 function ArchivedGame() {
   const { day } = useParams();
   const parsedDay = Number(day ?? 0);
 
+  if (parsedDay > getCurrentDay()) {
+    return <div className="p-6">Game not available for future days.</div>;
+  }
+
+  if (parsedDay < getCurrentDay() - 10) {
+    return (
+      <div className="p-6">Game not available for days older than 10 days.</div>
+    );
+  }
+
   return <Game day={Number.isFinite(parsedDay) ? parsedDay : 0} />;
 }
 
+function DailyGame({ mode }: { mode: "normal" | "hard" }) {
+  return <Game day={getCurrentDay()} mode={mode} />;
+}
+
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    async function fetchUser() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setUser(user);
+      }
+    }
+
+    fetchUser();
+  }, []);
+
+  const isLoggedIn = Boolean(user);
 
   return (
     <BrowserRouter>
@@ -45,7 +78,10 @@ function App() {
               <Link to="/archive" className="hover:text-red-200">
                 Archive
               </Link>
-              <Link to={isLoggedIn ? "/account" : "/signup"} className="hover:text-red-200">
+              <Link
+                to={isLoggedIn ? "/account" : "/login"}
+                className="hover:text-red-200"
+              >
                 {isLoggedIn ? "Account" : "Log In"}
               </Link>
             </div>
@@ -56,16 +92,21 @@ function App() {
           <div className="pt-12">
             <Routes>
               <Route path="/" element={<Homepage />} />
+              <Route path="/normal" element={<DailyGame mode="normal" />} />
+              <Route path="/hard" element={<DailyGame mode="hard" />} />
               <Route
                 path="/about"
                 element={<div className="p-6">About page (coming soon)</div>}
               />
               <Route path="/archive" element={<Archive />} />
               <Route path="/archive/:day" element={<ArchivedGame />} />
-              <Route path="/signup" element={<LoginSignup setLoggedIn={setIsLoggedIn} />} />
+              <Route
+                path="/login"
+                element={<LoginSignup setUser={setUser} />}
+              />
               <Route
                 path="/account"
-                element={<Account setLoggedIn={setIsLoggedIn} />}
+                element={<Account user={user} setUser={setUser} />}
               />
               <Route
                 path="/help"

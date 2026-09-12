@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Button } from "../components";
 import { supabase } from "../../supabase/supabase";
+import type { User } from "@supabase/supabase-js";
 
 async function signUpNewUser(
   email: string,
   password: string,
   username?: string,
-  setLoggedIn?: (loggedIn: boolean) => void,
+  setUser?: (user: User | null) => void,
 ) {
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -25,14 +26,14 @@ async function signUpNewUser(
     return;
   }
 
-  setLoggedIn?.(true);
+  setUser?.(data.user);
   console.log("Signed up:", data);
 }
 
 async function signInWithEmail(
   email: string,
   password: string,
-  setLoggedIn?: (loggedIn: boolean) => void,
+  setUser?: (user: User | null) => void,
 ) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -44,7 +45,7 @@ async function signInWithEmail(
     return;
   }
 
-  setLoggedIn?.(true);
+  setUser?.(data.user);
   console.log("Logged in:", data);
 }
 
@@ -70,11 +71,11 @@ function passwordError(pw: string) {
 }
 
 export default function LoginSignup({
-  setLoggedIn,
+  setUser,
 }: {
-  setLoggedIn: (loggedIn: boolean) => void;
+  setUser: (user: User | null) => void;
 }) {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -119,11 +120,11 @@ export default function LoginSignup({
       <Button
         onClick={() => {
           if (isLogin) {
-            signInWithEmail(email, password, setLoggedIn);
+            signInWithEmail(email, password, setUser);
             return;
           }
 
-          signUpNewUser(email, password, username, setLoggedIn);
+          signUpNewUser(email, password, username, setUser);
         }}
       >
         {isLogin ? "Login" : "Sign Up"}
