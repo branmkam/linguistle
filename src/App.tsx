@@ -14,12 +14,17 @@ import {
   useParams,
 } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons/faQuestionCircle";
+import {
+  faMoon,
+  faSun,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { GameStats } from "./components/GameStats";
 import Account from "./pages/Account";
 import type { User } from "@supabase/supabase-js";
 
-function ArchivedGame() {
+// archived game definition
+function ArchivedGame({ darkMode }: { darkMode: boolean }) {
   const { day } = useParams();
   const parsedDay = Number(day ?? 0);
 
@@ -33,15 +38,27 @@ function ArchivedGame() {
     );
   }
 
-  return <Game day={Number.isFinite(parsedDay) ? parsedDay : 0} />;
+  return (
+    <Game
+      darkMode={darkMode}
+      day={Number.isFinite(parsedDay) ? parsedDay : 0}
+    />
+  );
 }
 
-function DailyGame({ mode }: { mode: "normal" | "hard" }) {
-  return <Game day={getCurrentDay()} mode={mode} />;
+function DailyGame({
+  mode,
+  darkMode,
+}: {
+  mode: "normal" | "hard";
+  darkMode: boolean;
+}) {
+  return <Game darkMode={darkMode} day={getCurrentDay()} mode={mode} />;
 }
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
     async function fetchUser() {
@@ -61,7 +78,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="w-full min-h-screen bg-gray-100">
+      <div
+        className={`w-full justify-start items-center flex flex-col min-h-screen ${darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-gray-900"}`}
+      >
         <div className="font-homenaje text-center mx-auto max-w-300">
           {/* header */}
           <div className="fixed top-0 left-0 w-full z-50 text-2xl h-12 flex justify-between px-4 gap-4 items-center text-white  bg-gray-800">
@@ -69,13 +88,32 @@ function App() {
               Linguistle
             </Link>
             <div className="flex gap-4 text-base md:text-lg items-center">
-              <Link to="/help" className="hover:text-red-200">
+              <span
+                title="Toggle Dark Mode"
+                className="hover:text-red-200 cursor-pointer transition-all duration-200"
+              >
+                <FontAwesomeIcon
+                  icon={darkMode ? faSun : faMoon}
+                  onClick={() => setDarkMode(!darkMode)}
+                />{" "}
+              </span>
+              <Link
+                title="Help"
+                to="/help"
+                className="hover:text-red-200 transition-all duration-200"
+              >
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </Link>
-              <Link to="/about" className="hover:text-red-200">
+              <Link
+                to="/about"
+                className="hover:text-red-200 transition-all duration-200"
+              >
                 About
               </Link>
-              <Link to="/archive" className="hover:text-red-200">
+              <Link
+                to="/archive"
+                className="hover:text-red-200 transition-all duration-200"
+              >
                 Archive
               </Link>
               <Link
@@ -89,17 +127,26 @@ function App() {
 
           {/* main content */}
 
-          <div className="pt-12">
+          <div className="pt-16 pb-8">
             <Routes>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/daily/normal" element={<DailyGame mode="normal" />} />
-              <Route path="/daily/hard" element={<DailyGame mode="hard" />} />
+              <Route path="/" element={<Homepage user={user} />} />
+              <Route
+                path="/daily/normal"
+                element={<DailyGame mode="normal" darkMode={darkMode} />}
+              />
+              <Route
+                path="/daily/hard"
+                element={<DailyGame mode="hard" darkMode={darkMode} />}
+              />
               <Route
                 path="/about"
                 element={<div className="p-6">About page (coming soon)</div>}
               />
               <Route path="/archive" element={<Archive />} />
-              <Route path="/archive/:day" element={<ArchivedGame />} />
+              <Route
+                path="/archive/:day"
+                element={<ArchivedGame darkMode={darkMode} />}
+              />
               <Route
                 path="/login"
                 element={<LoginSignup setUser={setUser} />}
@@ -112,7 +159,6 @@ function App() {
                 path="/help"
                 element={
                   <div className="p-6">
-                    Stats
                     <GameStats />
                   </div>
                 }

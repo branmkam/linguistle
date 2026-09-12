@@ -6,6 +6,8 @@ export interface Game {
   solved: boolean;
   guesses: string[];
   created_at: string;
+  mode: string;
+  score: number;
 }
 
 export interface Profile {
@@ -19,9 +21,10 @@ export interface UserWithGames extends Profile {
 }
 
 export interface Stats {
-    totalGames: number;
-    wins: number;
-    winRate: number;
-    currentStreak: number;
-    averageGuesses: number;
+  totalGames: number;
+  wins: number;
+  winRate: number;
+  currentStreak: number;
+  averageGuesses: number;
+  averageScore: number;
 }

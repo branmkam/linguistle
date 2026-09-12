@@ -13,9 +13,10 @@ interface Point {
 interface MapProps {
   points: Point[];
   targetPoint: [number, number]; // [lat, lng]
+  darkMode?: boolean;
 }
 
-export default function GameMap({ points }: MapProps) {
+export default function GameMap({ points, darkMode }: MapProps) {
   const mapRef = useRef<L.Map | null>(null);
 
   // Auto-zoom when points change
@@ -52,8 +53,8 @@ export default function GameMap({ points }: MapProps) {
       ref={mapRef}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; OpenStreetMap contributors'
+        url={`https://cartodb-basemaps-{s}.global.ssl.fastly.net/${darkMode ? 'dark_all' : 'light_all'}/{z}/{x}/{y}.png?key=cb1_3imr_1_45f02930defff05de59cf1d9`}
+        attribution='&copy; CARTO, OpenStreetMap contributors'
       />
 
       {/* Data points with distance-based colors */}

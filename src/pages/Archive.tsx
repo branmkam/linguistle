@@ -8,7 +8,7 @@ export default function Archive() {
   const currentIndex = Math.abs(daysPast) % langs.length;
 
   return (
-    <div className="m-4 flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <h1 className="text-xl font-ultra md:text-3xl">Archive Page</h1>
       <h2 className="text-lg font-bold md:text-2xl">
         Play the previous 10 normal rounds (totally free!)

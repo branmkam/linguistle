@@ -28,34 +28,72 @@ export function shuffleWithSeed<T>(items: T[], seed: number): T[] {
 export function score(guessedLangs: Language[], currentLang: Language): number {
   if (guessedLangs.length === 0) return 0;
 
-  // score based on latest guess
-  // if correct
+  const rank = (status: string) => {
+    if (status === "correct") return 2;
+    if (status === "partial") return 1;
+    return 0;
+  };
+
+  // iterates thru guesses and checks each one to get best score
+  const chooseBest = (
+    currentBest: string,
+    nextStatus: string,
+  ) => {
+    return rank(nextStatus) > rank(currentBest) ? nextStatus : currentBest;
+  };
+
+  const bestGuess = guessedLangs.reduce(
+    (best, guess) => {
+      const fam = familyChecker(guess.languageFamily, currentLang.languageFamily);
+      const native = numberChecker(guess.nativeSpeakers, currentLang.nativeSpeakers);
+      const macro =
+        guess.originContinent === currentLang.originContinent
+          ? "correct"
+          : "incorrect";
+
+      const lat1 = guess.latitude ?? 0;
+      const lon1 = guess.longitude ?? 0;
+      const lat2 = currentLang.latitude ?? 0;
+      const lon2 = currentLang.longitude ?? 0;
+      const distanceKm = haversineKm(lat1, lon1, lat2, lon2);
+      const distance = distanceChecker(distanceKm);
+
+      return {
+        fam: chooseBest(best.fam, fam),
+        native: chooseBest(best.native, native),
+        macro: chooseBest(best.macro, macro),
+        distance: chooseBest(best.distance, distance),
+        closestDistance: Math.min(best.closestDistance, distanceKm),
+      };
+    },
+    {
+      fam: "incorrect",
+      native: "incorrect",
+      macro: "incorrect",
+      distance: "incorrect",
+      closestDistance: Number.POSITIVE_INFINITY,
+    },
+  );
+
   const latestGuess = guessedLangs[guessedLangs.length - 1];
   if (latestGuess.languageName === currentLang.languageName) {
     return 102 - 2 * guessedLangs.length;
   }
-  // if not correct: evaluate family, native speakers, macroarea, and distance
-  const fam = familyChecker(latestGuess.languageFamily, currentLang.languageFamily);
-  const native = numberChecker(latestGuess.nativeSpeakers, currentLang.nativeSpeakers);
-  const macro = (latestGuess.originContinent === currentLang.originContinent) ? "correct" : "incorrect";
 
-  const lat1 = latestGuess.latitude ?? 0;
-  const lon1 = latestGuess.longitude ?? 0;
-  const lat2 = currentLang.latitude ?? 0;
-  const lon2 = currentLang.longitude ?? 0;
-
-  const distanceKm = haversineKm(lat1, lon1, lat2, lon2);
-  const distCheck = distanceChecker(Math.round(distanceKm));
-
-  const checks = [fam, native, macro, distCheck];
-
+  const checks = [bestGuess.fam, bestGuess.native, bestGuess.macro, bestGuess.distance];
   const total = checks.reduce((sum, result) => {
     if (result === "correct") return sum + 1;
     if (result === "partial") return sum + 0.5;
     return sum;
   }, 0);
 
-  return (total / checks.length) * (102 - 4 * guessedLangs.length);
+  const distRatio =
+    bestGuess.closestDistance === Number.POSITIVE_INFINITY
+      ? 0
+      : Math.min(bestGuess.closestDistance / 20000, 1);
+  const distScore = (1 - distRatio) * 0.25;
+
+  return (total / 4 + distScore) * (102 - 4 * guessedLangs.length);
 }
 
 export function getCurrentDay(): number {
@@ -64,3 +102,5 @@ export function getCurrentDay(): number {
   const daysPast = Math.floor((Date.now() - startDate.getTime()) / dayMs);
   return Math.abs(daysPast);
 }
+
+export const SEED = 2029; // DO NOT CHANGE SEED. This is used to shuffle the languages consistently across all users.

@@ -4,9 +4,14 @@ import { faShareAlt } from "@fortawesome/free-solid-svg-icons";
 import raw from "../data/withFamily.json";
 import { Modal, TableCell, LangRow, LangSearch, Button } from "../components";
 import type { Language } from "../utils/types";
-import { getCurrentDay, score, shuffleWithSeed } from "../utils/utils";
+import {
+  getCurrentDay,
+  haversineKm,
+  score,
+  shuffleWithSeed,
+  SEED,
+} from "../utils";
 import GameMap from "./GameMap";
-import { haversineKm } from "../utils/haversine";
 import { createGame } from "../../supabase/gameService";
 import { supabase } from "../../supabase/supabase";
 
@@ -31,9 +36,11 @@ const langsFull = raw.map((item) => ({
 export default function Game({
   day,
   mode = "normal",
+  darkMode = false,
 }: {
   day: number;
   mode?: "normal" | "hard";
+  darkMode?: boolean;
 }) {
   const langs = langsFull.filter(
     (lang) => lang.nativeSpeakers > (mode === "hard" ? 1000000 : 10000000),
@@ -62,7 +69,7 @@ export default function Game({
         .select("*")
         .eq("user_id", user.id)
         .eq("day", day)
-        .eq('mode', mode);
+        .eq("mode", mode);
 
       if (!isActive) return;
 
@@ -111,7 +118,7 @@ export default function Game({
 
   const currentIndex = Math.abs(day) % langs.length;
   // DO NOT CHANGE SEED.
-  const shuffledLanguages = shuffleWithSeed(langs, 2029);
+  const shuffledLanguages = shuffleWithSeed(langs, SEED);
   const currentLang = shuffledLanguages[currentIndex];
 
   const fullGuessedLangs = guessedLangs;
@@ -129,14 +136,14 @@ export default function Game({
 
     const guessedIds = guessedLangs.map((lang) => lang.iso639_3);
 
-    createGame(guessedIds, foundLanguage, day, mode)
+    createGame(guessedIds, foundLanguage, day, mode, currentScore)
       .then(() => {
         hasSavedGame.current = true;
       })
       .catch((error) => {
         console.error("Failed to save game result:", error);
       });
-  }, [gameOver, foundLanguage, guessedLangs, day, mode]);
+  }, [gameOver, foundLanguage, guessedLangs, day, mode, currentScore]);
 
   const wikiName = currentLang.languageName
     .replace(/\s*\([^)]*\)\s*/g, "") // remove parentheses and contents
@@ -144,8 +151,10 @@ export default function Game({
     .replace(/\s+/g, "_");
 
   return (
-    <div className="flex flex-col justify-center min-w-90 max-w-300 gap-4 h-full m-4 pb-8">
-      <div className="flex gap-6 justify-center items-center sticky top-12 z-50 py-2 bg-gray-100 w-full">
+    <div className="flex flex-col justify-center min-w-90 max-w-300 gap-4 h-full m-4">
+      <div
+        className={`flex gap-6 justify-center items-center sticky top-12 z-50 py-2 ${darkMode ? "bg-gray-900" : "bg-gray-100"} w-full`}
+      >
         <h1 className="font-ultra text-xl md:text-3xl">#{day}</h1>
         {gameOver ? (
           <>
@@ -156,7 +165,7 @@ export default function Game({
             </span>
             <Button
               onClick={() => setShowModal(true)}
-              className="text-white rounded-3xl md:text-2xl w-36 bg-blue-700 px-4 py-2 hover:bg-blue-400"
+              className="text-white transition-all duration-300 ease-in-out rounded-3xl md:text-2xl w-36 bg-blue-700 px-4 py-2 hover:bg-blue-400"
             >
               View Score
             </Button>
@@ -217,6 +226,7 @@ export default function Game({
               currentLang.latitude || 0,
               currentLang.longitude || 0,
             ]}
+            darkMode={darkMode}
           />
         </div>
       </div>

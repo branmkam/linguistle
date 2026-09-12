@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components";
 import { supabase } from "../../supabase/supabase";
 import type { User } from "@supabase/supabase-js";
@@ -23,11 +24,12 @@ async function signUpNewUser(
 
   if (error) {
     console.error(error.message);
-    return;
+    return { error: error.message };
   }
 
   setUser?.(data.user);
   console.log("Signed up:", data);
+  return { error: null };
 }
 
 async function signInWithEmail(
@@ -42,11 +44,12 @@ async function signInWithEmail(
 
   if (error) {
     console.error(error.message);
-    return;
+    return { error: error.message };
   }
 
   setUser?.(data.user);
   console.log("Logged in:", data);
+  return { error: null };
 }
 
 function verifyEmail(email: string) {
@@ -75,6 +78,7 @@ export default function LoginSignup({
 }: {
   setUser: (user: User | null) => void;
 }) {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -82,21 +86,51 @@ export default function LoginSignup({
 
   const emailValidationMessage = verifyEmail(email);
   const passwordValidationMessage = passwordError(password);
+  const usernameValidationMessage = !isLogin && !username.trim()
+    ? "Username is required."
+    : "";
+
+  const isFormValid =
+    !emailValidationMessage &&
+    !passwordValidationMessage &&
+    (!isLogin ? !usernameValidationMessage : true);
+
+  const handleSubmit = async () => {
+    if (!isFormValid) return;
+
+    if (isLogin) {
+      const result = await signInWithEmail(email, password, setUser);
+      if (!result.error) {
+        navigate("/");
+      }
+      return;
+    }
+
+    const result = await signUpNewUser(email, password, username, setUser);
+    if (!result.error) {
+      navigate("/");
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-3rem)] bg-gray-100 gap-4">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-3rem)] gap-4">
       {isLogin ? (
         <h1 className="text-4xl font-bold">Login</h1>
       ) : (
         <h1 className="text-4xl font-bold">Sign Up</h1>
       )}
       {!isLogin && (
-        <input
-          className="border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <>
+          <input
+            className={`border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 ${usernameValidationMessage ? "border-red-500" : ""}`}
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          {usernameValidationMessage && (
+            <p className="text-red-500 text-sm">{usernameValidationMessage}</p>
+          )}
+        </>
       )}
       <input
         className={`border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 ${emailValidationMessage ? "border-red-500" : ""}`}
@@ -117,16 +151,7 @@ export default function LoginSignup({
       {passwordValidationMessage && (
         <p className="text-red-500 text-sm">{passwordValidationMessage}</p>
       )}
-      <Button
-        onClick={() => {
-          if (isLogin) {
-            signInWithEmail(email, password, setUser);
-            return;
-          }
-
-          signUpNewUser(email, password, username, setUser);
-        }}
-      >
+      <Button onClick={handleSubmit}>
         {isLogin ? "Login" : "Sign Up"}
       </Button>
       <p

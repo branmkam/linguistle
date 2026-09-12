@@ -16,7 +16,13 @@ export async function getUserProfile() {
 }
 
 // Create a new game
-export async function createGame(guesses: string[], solved: boolean, day: number, mode: string = "normal") {
+export async function createGame(
+  guesses: string[],
+  solved: boolean,
+  day: number,
+  mode: string = "normal",
+  score: number = 0,
+) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -30,6 +36,7 @@ export async function createGame(guesses: string[], solved: boolean, day: number
       solved,
       day,
       mode,
+      score,
     })
     .select()
     .single();
@@ -77,7 +84,10 @@ export async function getUserStats() {
   const currentStreak = calculateStreak(games);
   const averageGuesses =
     totalGames > 0
-      ? games.reduce((sum, g) => sum + (Array.isArray(g.guesses) ? g.guesses.length : 0), 0) / totalGames
+      ? games.reduce(
+          (sum, g) => sum + (Array.isArray(g.guesses) ? g.guesses.length : 0),
+          0,
+        ) / totalGames
       : 0;
 
   return {
@@ -86,6 +96,14 @@ export async function getUserStats() {
     winRate: Number(winRate.toFixed(1)),
     currentStreak,
     averageGuesses: Number(averageGuesses.toFixed(1)),
+    averageScore: Number(
+      (
+        games.reduce(
+          (sum, g) => sum + (typeof g.score === "number" ? g.score : 0),
+          0,
+        ) / totalGames
+      ).toFixed(1),
+    ),
   };
 }
 
