@@ -22,7 +22,6 @@ const langsFull = raw.map((item) => ({
   languageFamily: item.path || item.classification || item.top_family || "",
   familyDisplay: item.top_family || item.first_subfamily || "",
   nativeSpeakers: Number(item.nativeSpeakers) || 0,
-  totalSpeakers: Number(item.totalSpeakers) || 0,
   primaryCountries: item.Countries || item.Countries || "",
   script: item.mainScript || "",
   isOfficialUN: "",

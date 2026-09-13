@@ -2,7 +2,6 @@ export type Language = {
   languageName: string;
   languageFamily: string;
   nativeSpeakers: number;
-  totalSpeakers: number;
   primaryCountries: string;
   script: string;
   isOfficialUN: string;
