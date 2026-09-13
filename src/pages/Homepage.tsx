@@ -22,7 +22,12 @@ export default function Homepage({ user }: { user: User | null }) {
       <p className="text-lg">More modes and games coming soon.</p>
       <h3 className="text-3xl font-ultra">
         Day <span className="text-amber-500">{getCurrentDay()}</span> |{" "}
-        {new Date().toLocaleDateString()}
+        {new Date().toLocaleDateString(undefined, {
+          month: "numeric",
+          day: "numeric",
+          year: "numeric",
+          timeZone: "UTC",
+        })}
       </h3>
       <h2 className="text-2xl font-semibold mb-4">Choose your difficulty:</h2>
       <div className="flex flex-col items-center w-80 gap-4">
