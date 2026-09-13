@@ -21,7 +21,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { GameStats } from "./components/GameStats";
 import Account from "./pages/Account";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import type { User } from "@supabase/supabase-js";
+import About from "./pages/About";
 
 // archived game definition
 function ArchivedGame({ darkMode }: { darkMode: boolean }) {
@@ -140,7 +142,7 @@ function App() {
               />
               <Route
                 path="/about"
-                element={<div className="p-6">About page (coming soon)</div>}
+                element={<div className="p-6"><About /></div>}
               />
               <Route path="/archive" element={<Archive />} />
               <Route
@@ -159,7 +161,7 @@ function App() {
                 path="/help"
                 element={
                   <div className="p-6">
-                    <GameStats />
+                   { user ? <GameStats /> : <p className="text-2xl">Please <Link to="/login" className="underline hover:text-purple-300">log in</Link> or <Link to="/signup" className="underline hover:text-purple-300">sign up</Link> to view your game stats.</p> }
                   </div>
                 }
               />
@@ -178,6 +180,7 @@ function App() {
                   </div>
                 }
               />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>
           </div>
           {/* footer */}
@@ -196,11 +199,15 @@ function App() {
               <a
                 rel="noreferrer"
                 target="_blank"
-                className="underline hover:text-purple-300"
+                className="hover:text-purple-300"
                 href="mailto:brankamgg@gmail.com"
               >
                 Contact
               </a>
+              {" "}|{" "}
+              <Link to="/privacy-policy" className="hover:text-purple-300">
+                Privacy Policy
+              </Link>
             </div>
           </div>
         </div>

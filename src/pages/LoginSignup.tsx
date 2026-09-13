@@ -4,6 +4,11 @@ import { Button } from "../components";
 import { supabase } from "../../supabase/supabase";
 import type { User } from "@supabase/supabase-js";
 
+function getAuthRedirectUrl() {
+  const configuredUrl = import.meta.env.VITE_APP_URL || import.meta.env.VITE_SITE_URL || window.location.origin;
+  return `${configuredUrl.replace(/\/$/, "")}/`;
+}
+
 async function signUpNewUser(
   email: string,
   password: string,
@@ -14,7 +19,7 @@ async function signUpNewUser(
     email,
     password,
     options: {
-      emailRedirectTo: "/",
+      emailRedirectTo: getAuthRedirectUrl(),
       data: {
         username,
         display_name: username,
