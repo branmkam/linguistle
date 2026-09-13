@@ -52,7 +52,7 @@ function DailyGame({
   mode,
   darkMode,
 }: {
-  mode: "normal" | "hard";
+  mode: "easy" | "normal" | "hard";
   darkMode: boolean;
 }) {
   return <Game darkMode={darkMode} day={getCurrentDay()} mode={mode} />;
@@ -132,6 +132,10 @@ function App() {
           <div className="pt-16 pb-8">
             <Routes>
               <Route path="/" element={<Homepage user={user} />} />
+              <Route
+                path="/daily/easy"
+                element={<DailyGame mode="easy" darkMode={darkMode} />}
+              />
               <Route
                 path="/daily/normal"
                 element={<DailyGame mode="normal" darkMode={darkMode} />}

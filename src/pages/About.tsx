@@ -3,7 +3,7 @@ import { TitleCard } from "../components/TitleCard";
 
 export default function About() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 text-left sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-4xl text-left sm:px-6 lg:px-8">
       <TitleCard
         eyebrow="About"
         title="Learn about the world's languages through Wordle-style deduction."
@@ -30,20 +30,24 @@ export default function About() {
 
         <Card title="What are the modes?">
           <p className="text-lg leading-7 text-slate-200">
-            There are two modes in Linguistle: Normal and Hard.
+            There are three modes in Linguistle: Easy, Normal, and Hard.
+          </p>
+          <p className="text-lg leading-7 text-slate-200">
+            In Easy mode, the target language will be one with{" "}
+            <b>more than 40 million speakers</b> - the most familiar and widely spoken languages.
           </p>
           <p className="text-lg leading-7 text-slate-200">
             In Normal mode, the target language will be one with{" "}
-            <b>at least 10 million speakers</b> - pretty common.
+            <b>more than 10 million speakers</b> - still common, but a bit more varied.
           </p>
           <p className="text-lg leading-7 text-slate-200">
             In Hard mode, the target language will be one with{" "}
-            <b>between 1 and 100 million speakers</b>, allowing for an opportunity to learn about lesser-spoken
+            <b>between 1 and 50 million speakers</b>, allowing for an opportunity to learn about lesser-spoken
             languages.
           </p>
           <p className="text-lg leading-7 text-slate-200">
-            Both modes allow for any language to be guessed for info, but the
-            target language will always be in the specified range.
+            All modes allow any language to be guessed for info, but the target
+            language will always be in the specified range for that mode.
           </p>
         </Card>
 

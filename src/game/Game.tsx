@@ -39,12 +39,16 @@ export default function Game({
   darkMode = false,
 }: {
   day: number;
-  mode?: "normal" | "hard";
+  mode?: "easy" | "normal" | "hard";
   darkMode?: boolean;
 }) {
-  const langs = langsFull.filter(
-    (lang) => lang.nativeSpeakers > (mode === "hard" ? 1000000 : 10000000),
-  );
+  const langs = langsFull.filter((lang) => {
+    const speakers = lang.nativeSpeakers;
+
+    if (mode === "easy") return speakers > 40_000_000;
+    if (mode === "hard") return speakers >= 1_000_000 && speakers <= 50_000_000;
+    return speakers > 10_000_000;
+  });
 
   const [guessedLangs, setGuessedLangs] = useState<Language[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -156,6 +160,7 @@ export default function Game({
         className={`flex gap-6 justify-center items-center sticky top-12 z-50 py-2 ${darkMode ? "bg-gray-900" : "bg-gray-100"} w-full`}
       >
         <h1 className="font-ultra text-xl md:text-3xl">#{day}</h1>
+        <span className="font-homenaje text-2xl">{mode}</span>
         {gameOver ? (
           <>
             <span className="text-base md:text-3xl">
@@ -198,7 +203,7 @@ export default function Game({
                 setHasGivenUp(true);
                 setShowModal(true);
               }}
-              className="text-white rounded-3xl md:text-2xl w-28 bg-red-700 px-4 py-2 hover:bg-red-400"
+              className="text-white rounded-3xl md:text-2xl w-34 bg-red-700 px-4 py-2 hover:bg-red-400"
               disabled={gameOver}
             >
               Give up

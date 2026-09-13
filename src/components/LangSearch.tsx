@@ -27,7 +27,7 @@ export function LangSearch({
   }, [languages, query]);
 
   return (
-    <div className="relative w-full max-w-xl self-center">
+    <div className="relative w-full self-center">
       <input
         type="text"
         disabled={disabled}
