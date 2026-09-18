@@ -5,8 +5,32 @@ import { supabase } from "../../supabase/supabase";
 import type { User } from "@supabase/supabase-js";
 
 function getAuthRedirectUrl() {
-  const configuredUrl = import.meta.env.VITE_APP_URL || import.meta.env.VITE_SITE_URL || window.location.origin;
+  const configuredUrl =
+    import.meta.env.VITE_APP_URL ||
+    import.meta.env.VITE_SITE_URL ||
+    window.location.origin;
   return `${configuredUrl.replace(/\/$/, "")}/`;
+}
+
+async function checkUsernameAvailability(username: string) {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("id")
+    .ilike("username", username.trim())
+    .maybeSingle();
+
+  if (error) {
+    console.log(error);
+    return {
+      error: "Unable to check username availability. Please try again.",
+    };
+  }
+
+  if (data) {
+    return { error: "That username is already taken." };
+  }
+
+  return { error: null };
 }
 
 async function signUpNewUser(
@@ -15,14 +39,21 @@ async function signUpNewUser(
   username?: string,
   setUser?: (user: User | null) => void,
 ) {
+  if (username) {
+    const usernameCheck = await checkUsernameAvailability(username);
+    if (usernameCheck.error) {
+      return usernameCheck;
+    }
+  }
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       emailRedirectTo: getAuthRedirectUrl(),
       data: {
-        username,
-        display_name: username,
+        username: username?.trim(),
+        display_name: username?.trim(),
       },
     },
   });
@@ -30,6 +61,25 @@ async function signUpNewUser(
   if (error) {
     console.error(error.message);
     return { error: error.message };
+  }
+
+  if (!data.user) {
+    return { error: "Account creation failed. Please try again." };
+  }
+
+  const { error: profileError } = await supabase.from("profiles").insert({
+    id: data.user.id,
+    email,
+    username: username?.trim(),
+    tier: "free",
+    created_at: new Date()
+  });
+
+  if (profileError) {
+    console.error(profileError.message);
+    return {
+      error: "Account created, but profile setup failed. Please try again.",
+    };
   }
 
   setUser?.(data.user);
@@ -88,12 +138,14 @@ export default function LoginSignup({
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const emailValidationMessage = verifyEmail(email);
   const passwordValidationMessage = passwordError(password);
-  const usernameValidationMessage = !isLogin && !username.trim()
-    ? "Username is required."
-    : "";
+  const usernameValidationMessage =
+    !isLogin && username.trim().normalize().length < 4
+      ? "Username must be at least 4 characters long, and only contain A-Z, a-z, 0-9, or _."
+      : "";
 
   const isFormValid =
     !emailValidationMessage &&
@@ -102,23 +154,28 @@ export default function LoginSignup({
 
   const handleSubmit = async () => {
     if (!isFormValid) return;
+    setErrorMessage("");
 
     if (isLogin) {
       const result = await signInWithEmail(email, password, setUser);
-      if (!result.error) {
-        navigate("/");
+      if (result.error) {
+        setErrorMessage(result.error);
+        return;
       }
+      navigate("/");
       return;
     }
 
     const result = await signUpNewUser(email, password, username, setUser);
-    if (!result.error) {
-      navigate("/verify-email");
+    if (result.error) {
+      setErrorMessage(result.error);
+      return;
     }
+    navigate("/verify-email");
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-3rem)] gap-4">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-6rem)] gap-4">
       {isLogin ? (
         <h1 className="text-4xl font-bold">Login</h1>
       ) : (
@@ -132,7 +189,7 @@ export default function LoginSignup({
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          {usernameValidationMessage && (
+          {username.length > 0 && usernameValidationMessage && (
             <p className="text-red-500 text-sm">{usernameValidationMessage}</p>
           )}
         </>
@@ -143,7 +200,7 @@ export default function LoginSignup({
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      {emailValidationMessage && (
+      {email.length > 0 && emailValidationMessage && (
         <p className="text-red-500 text-sm">{emailValidationMessage}</p>
       )}
       <input
@@ -153,14 +210,25 @@ export default function LoginSignup({
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      {passwordValidationMessage && (
+      {password.length > 0 && passwordValidationMessage && (
         <p className="text-red-500 text-sm">{passwordValidationMessage}</p>
       )}
-      <Button className="bg-blue-500 px-4 py-2 text-white rounded hover:bg-blue-600" onClick={handleSubmit}>
+      <Button
+        className="bg-blue-500 px-4 py-2 text-white rounded hover:bg-blue-600"
+        onClick={handleSubmit}
+      >
         {isLogin ? "Login" : "Sign Up"}
       </Button>
+      {errorMessage && (
+        <p
+          className="text-red-500 text-lg bg-slate-200 px-4 py-2 rounded-lg"
+          role="alert"
+        >
+          {errorMessage}
+        </p>
+      )}
       <p
-        className="text-sm text-blue-600 underline cursor-pointer"
+        className="text-lg text-blue-500 hover:underline cursor-pointer"
         onClick={() => setIsLogin((prev) => !prev)}
       >
         {isLogin

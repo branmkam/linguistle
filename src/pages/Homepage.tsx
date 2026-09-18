@@ -21,7 +21,7 @@ export default function Homepage({ user }: { user: User | null }) {
       </p>
       <p className="text-lg">More modes and games coming soon.</p>
       <h3 className="text-3xl font-ultra">
-        Day <span className="text-amber-500">{getCurrentDay()}</span> |{" "}
+        <span className="text-amber-600">Day {getCurrentDay()}</span> |{" "}
         {new Date().toLocaleDateString(undefined, {
           month: "numeric",
           day: "numeric",
@@ -31,28 +31,28 @@ export default function Homepage({ user }: { user: User | null }) {
       </h3>
       <h2 className="text-2xl font-semibold mb-4">Choose your difficulty:</h2>
       <div className="flex flex-col items-center w-80 gap-4">
-        <div className="flex items-center justify-between w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
+        <div className="flex items-center justify-between text-white w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
           <Button
             onClick={() => navigate("/daily/easy")}
-            className="bg-green-700 px-6 w-28 py-3 text-white md:text-2xl"
+            className="bg-green-700 px-6 w-28 py-3 md:text-2xl"
           >
             Easy
           </Button>
           <p className="text-xl">{">40 mil. speakers"}</p>
         </div>
-        <div className="flex items-center justify-between w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
+        <div className="flex items-center justify-between text-white w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
           <Button
             onClick={() => navigate("/daily/normal")}
-            className="bg-blue-700 px-6 w-28 py-3 text-white md:text-2xl"
+            className="bg-blue-700 px-6 w-28 py-3 md:text-2xl"
           >
             Normal
           </Button>
           <p className="text-xl">{">10 mil. speakers"}</p>
         </div>
-        <div className="flex items-center justify-between w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
+        <div className="flex items-center justify-between text-white w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
           <Button
             onClick={() => navigate("/daily/hard")}
-            className="bg-red-700 px-6 w-28 py-3 text-white md:text-2xl"
+            className="bg-red-700 px-6 w-28 py-3 md:text-2xl"
           >
             Hard
           </Button>
