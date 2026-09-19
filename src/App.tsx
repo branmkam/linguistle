@@ -110,7 +110,7 @@ function App() {
               </span>
               <Link
                 title="Help"
-                to="/help"
+                to="/stats"
                 className="hover:text-red-200 transition-all duration-200"
               >
                 <FontAwesomeIcon icon={faQuestionCircle} />
@@ -161,7 +161,7 @@ function App() {
                   </div>
                 }
               />
-              <Route path="/archive" element={<Archive />} />
+              <Route path="/archive" element={<Archive user={user} />} />
               <Route
                 path="/archive/:day"
                 element={<ArchivedGame darkMode={darkMode} />}
@@ -175,7 +175,7 @@ function App() {
                 element={<Account user={user} setUser={setUser} />}
               />
               <Route
-                path="/help"
+                path="/stats"
                 element={
                   <div className="px-6">
                     {user ? (

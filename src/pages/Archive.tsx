@@ -1,8 +1,24 @@
 import ArchiveCard from "../components/ArchiveCard";
 import { TitleCard } from "../components/TitleCard";
 import langs from "../data/toplanguages.json";
+import type { User } from "@supabase/supabase-js";
+import { useEffect, useState } from "react";
+import { getUserGames } from "../../supabase/gameService";
 
-export default function Archive() {
+export default function Archive({ user }: { user: User | null }) {
+  const [playedDays, setPlayedDays] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    if (!user) {
+      setPlayedDays(new Set());
+      return;
+    }
+
+    getUserGames()
+      .then((games) => setPlayedDays(new Set(games.map((game) => game.day))))
+      .catch((error) => console.error(error));
+  }, [user]);
+
   const dayMs = 24 * 60 * 60 * 1000;
   const startDate = new Date(Date.UTC(2026, 8, 1)); // 26 Aug 2026
   const daysPast = Math.floor(
@@ -23,7 +39,7 @@ export default function Archive() {
           const day = currentIndex - i - 1;
           return day > 0 ? (
             <div key={i} className="w-full max-w-48 sm:max-w-52">
-              <ArchiveCard day={day} />
+              <ArchiveCard day={day} isPlayed={playedDays.has(day)} />
             </div>
           ) : null;
         })}

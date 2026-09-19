@@ -117,7 +117,7 @@ export default function Game({
     return () => {
       isActive = false;
     };
-  }, [day]);
+  }, [day, mode]);
 
   const currentIndex = Math.abs(day) % langs.length;
   // DO NOT CHANGE SEED.
@@ -146,7 +146,7 @@ export default function Game({
       .catch((error) => {
         console.error("Failed to save game result:", error);
       });
-  }, [gameOver, foundLanguage, guessedLangs, day, mode, currentScore]);
+  }, [gameOver, hasGivenUp, foundLanguage, guessedLangs, day, mode, currentScore]);
 
   const wikiName = currentLang.languageName
     .replace(/\s*\([^)]*\)\s*/g, "") // remove parentheses and contents
