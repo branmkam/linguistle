@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { getCurrentDay } from "../utils/utils";
 import type { User } from "@supabase/supabase-js";
@@ -19,6 +19,15 @@ export default function Homepage({ user }: { user: User | null }) {
         In Linguistle, your job is not to identify a mystery language by how it
         looks, but by its characteristics and location.
       </p>
+      {user && !user.user_metadata?.username?.trim() && (
+        <p className="text-lg text-amber-300">
+          Choose a username to finish setting up your account.{" "}
+          <Link to="/account" className="underline hover:text-amber-100">
+            Update your username
+          </Link>
+          .
+        </p>
+      )}
       <p className="text-lg">More modes and games coming soon.</p>
       <h3 className="text-3xl font-ultra">
         <span className="text-amber-600">Day {getCurrentDay()}</span> |{" "}

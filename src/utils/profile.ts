@@ -1,0 +1,23 @@
+import type { User } from "@supabase/supabase-js";
+import { supabase } from "../../supabase/supabase";
+
+export async function ensureProfile(user: User) {
+  const fallbackUsername = `user_${user.id.replaceAll("-", "").slice(0, 8)}`;
+  const username =
+    user.user_metadata?.user_name ??
+    user.user_metadata?.preferred_username ??
+    fallbackUsername;
+
+  const { error } = await supabase.from("profiles").upsert(
+    {
+      id: user.id,
+      email: user.email,
+      username,
+      tier: "free",
+      created_at: new Date(),
+    },
+    { onConflict: "id", ignoreDuplicates: true },
+  );
+
+  return error;
+}

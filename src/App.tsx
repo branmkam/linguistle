@@ -24,6 +24,7 @@ import Account from "./pages/Account";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import type { User } from "@supabase/supabase-js";
 import About from "./pages/About";
+import { ensureProfile } from "./utils/profile";
 import NewGoogleAccount from "./pages/NewGoogleAccount";
 
 // archived game definition
@@ -70,6 +71,10 @@ function App() {
       } = await supabase.auth.getUser();
 
       if (user) {
+        const profileError = await ensureProfile(user);
+        if (profileError) {
+          console.error(profileError.message);
+        }
         setUser(user);
       }
     }

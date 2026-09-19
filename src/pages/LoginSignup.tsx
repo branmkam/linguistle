@@ -5,6 +5,7 @@ import { supabase } from "../../supabase/supabase";
 import type { User } from "@supabase/supabase-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { ensureProfile } from "../utils/profile";
 
 function getAuthRedirectUrl() {
   const configuredUrl =
@@ -81,13 +82,7 @@ async function signUpNewUser(
     };
   }
 
-  const { error: profileError } = await supabase.from("profiles").insert({
-    id: data.user.id,
-    email,
-    username: username?.trim(),
-    tier: "free",
-    created_at: new Date(),
-  });
+  const profileError = await ensureProfile(data.user);
 
   if (profileError) {
     console.error(profileError.message);
@@ -114,6 +109,11 @@ async function signInWithEmail(
   if (error) {
     console.error(error.message);
     return { error: error.message };
+  }
+
+  const profileError = await ensureProfile(data.user);
+  if (profileError) {
+    return { error: "Unable to set up your profile. Please try again." };
   }
 
   setUser?.(data.user);
@@ -211,8 +211,8 @@ export default function LoginSignup({
     const result = await signInWithGoogle();
     if (result.error) {
       setErrorMessage(result.error);
+      return;
     }
-    navigate("/new-google-account");
   };
 
   return (
