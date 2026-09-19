@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../components";
 import { supabase } from "../../supabase/supabase";
 import type { User } from "@supabase/supabase-js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 function getAuthRedirectUrl() {
   const configuredUrl =
@@ -60,6 +62,11 @@ async function signUpNewUser(
 
   if (error) {
     console.error(error.message);
+    if (/already registered|already exists/i.test(error.message)) {
+      return {
+        error: "An account with this email already exists. Please log in.",
+      };
+    }
     return { error: error.message };
   }
 
@@ -67,12 +74,19 @@ async function signUpNewUser(
     return { error: "Account creation failed. Please try again." };
   }
 
+  // Supabase hides existing-account errors when email confirmation is enabled.
+  if (data.user.identities?.length === 0) {
+    return {
+      error: "An account with this email already exists. Please log in.",
+    };
+  }
+
   const { error: profileError } = await supabase.from("profiles").insert({
     id: data.user.id,
     email,
     username: username?.trim(),
     tier: "free",
-    created_at: new Date()
+    created_at: new Date(),
   });
 
   if (profileError) {
@@ -107,8 +121,19 @@ async function signInWithEmail(
   return { error: null };
 }
 
+async function signInWithGoogle() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: getAuthRedirectUrl(),
+    },
+  });
+
+  return error ? { error: error.message } : { error: null };
+}
+
 function verifyEmail(email: string) {
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
     return "Invalid email format.";
   }
 
@@ -152,12 +177,14 @@ export default function LoginSignup({
     !passwordValidationMessage &&
     (!isLogin ? !usernameValidationMessage : true);
 
-  const handleSubmit = async () => {
-    if (!isFormValid) return;
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!event.currentTarget.checkValidity() || !isFormValid) return;
     setErrorMessage("");
+    const normalizedEmail = email.trim();
 
     if (isLogin) {
-      const result = await signInWithEmail(email, password, setUser);
+      const result = await signInWithEmail(normalizedEmail, password, setUser);
       if (result.error) {
         setErrorMessage(result.error);
         return;
@@ -166,7 +193,12 @@ export default function LoginSignup({
       return;
     }
 
-    const result = await signUpNewUser(email, password, username, setUser);
+    const result = await signUpNewUser(
+      normalizedEmail,
+      password,
+      username,
+      setUser,
+    );
     if (result.error) {
       setErrorMessage(result.error);
       return;
@@ -174,8 +206,19 @@ export default function LoginSignup({
     navigate("/verify-email");
   };
 
+  const handleGoogleAuth = async () => {
+    setErrorMessage("");
+    const result = await signInWithGoogle();
+    if (result.error) {
+      setErrorMessage(result.error);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-6rem)] gap-4">
+    <form
+      className="flex flex-col items-center justify-center min-h-[calc(100vh-6rem)] gap-4"
+      onSubmit={handleSubmit}
+    >
       {isLogin ? (
         <h1 className="text-4xl font-bold">Login</h1>
       ) : (
@@ -184,6 +227,7 @@ export default function LoginSignup({
       {!isLogin && (
         <>
           <input
+            required
             className={`border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 ${usernameValidationMessage ? "border-red-500" : ""}`}
             placeholder="Username"
             value={username}
@@ -195,6 +239,8 @@ export default function LoginSignup({
         </>
       )}
       <input
+        required
+        type="email"
         className={`border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 ${emailValidationMessage ? "border-red-500" : ""}`}
         placeholder="Email"
         value={email}
@@ -204,6 +250,7 @@ export default function LoginSignup({
         <p className="text-red-500 text-sm">{emailValidationMessage}</p>
       )}
       <input
+        required
         className={`border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 ${passwordValidationMessage ? "border-red-500" : ""}`}
         placeholder="Password"
         type="password"
@@ -213,9 +260,10 @@ export default function LoginSignup({
       {password.length > 0 && passwordValidationMessage && (
         <p className="text-red-500 text-sm">{passwordValidationMessage}</p>
       )}
+
       <Button
+        type="submit"
         className="bg-blue-500 px-4 py-2 text-white rounded hover:bg-blue-600"
-        onClick={handleSubmit}
       >
         {isLogin ? "Login" : "Sign Up"}
       </Button>
@@ -227,14 +275,23 @@ export default function LoginSignup({
           {errorMessage}
         </p>
       )}
-      <p
+      <button
+        type="button"
         className="text-lg text-blue-500 hover:underline cursor-pointer"
         onClick={() => setIsLogin((prev) => !prev)}
       >
         {isLogin
           ? "Don't have an account? Sign up"
           : "Already have an account? Log in"}
-      </p>
-    </div>
+      </button>
+      <Button
+        type="button"
+        className="bg-white px-4 py-2 mt-8 text-gray-800 border border-gray-300 hover:bg-gray-100"
+        onClick={handleGoogleAuth}
+      >
+        <FontAwesomeIcon icon={faGoogle} className="mr-2" />
+        Sign up / Log in with Google
+      </Button>
+    </form>
   );
 }

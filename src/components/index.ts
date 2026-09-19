@@ -5,3 +5,4 @@ export { Modal } from "./Modal";
 export { Button } from "./Button";
 export { GameStats } from "./GameStats";
 export { Card } from "./Card";
+export { UsernameEditor } from "./UsernameEditor";

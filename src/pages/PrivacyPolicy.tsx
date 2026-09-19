@@ -54,10 +54,10 @@ export default function PrivacyPolicy() {
       </h2>
       <p className="mb-4">
         Account sign-in is handled by <strong>Supabase</strong>, our backend and
-        authentication provider. Google sign-in is planned for the future: if
-        you sign in with Google, Google shares your email and basic profile
-        information with us for that purpose, in line with Google’s own sign-in
-        permissions and the consent you provide during login.
+        authentication provider. If you sign in with Google, Google shares your
+        email and basic profile information with us for that purpose, in line
+        with Google’s own sign-in permissions and the consent you provide during
+        login.
       </p>
 
       <h2 className="mt-8 mb-3 text-2xl font-semibold">

@@ -1,4 +1,4 @@
-import { Button, Modal } from "../components";
+import { Button, Modal, UsernameEditor } from "../components";
 import { supabase } from "../../supabase/supabase";
 import type { User } from "@supabase/supabase-js";
 import { Link, useNavigate } from "react-router-dom";
@@ -54,7 +54,10 @@ export default function Account({ user, setUser }: AccountProps) {
   return (
     <div className="justify-center items-center flex-col flex gap-4">
       <h1 className="text-xl font-ultra md:text-3xl">Account Page</h1>
-      <p>User: {displayName}</p>
+      <div className="flex items-center gap-3">
+        <p>User: {displayName}</p>
+        {user && <UsernameEditor user={user} setUser={setUser} />}
+      </div>
       <div className="flex gap-4">
         <Button className="bg-blue-600 rounded-lg px-4 py-2" onClick={handleSignOut}>
           <Link to="/login">Sign Out</Link>
