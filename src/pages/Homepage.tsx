@@ -7,7 +7,7 @@ export default function Homepage({ user }: { user: User | null }) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex mt-8 flex-col items-center gap-4 min-h-[75vh]">
+    <div className="flex flex-col items-center gap-4 min-h-[75vh]">
       <h2 className="text-4xl font-bold">
         Welcome to Linguistle
         {user?.user_metadata?.display_name

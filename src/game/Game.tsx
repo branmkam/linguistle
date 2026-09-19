@@ -239,7 +239,7 @@ export default function Game({
         {[
           "Name",
           "Family",
-          "Native (mil.)",
+          "Native Speakers",
           "Origin Area",
           "Distance to Origin",
         ].map((header, index) => (

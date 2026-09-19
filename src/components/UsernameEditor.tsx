@@ -92,7 +92,7 @@ export function UsernameEditor({ user, setUser }: UsernameEditorProps) {
   return (
     <>
       <Button
-        className="bg-gray-800 rounded-lg px-3 py-1 text-sm"
+        className="bg-gray-800 text-white rounded-lg px-3 py-1 text-sm"
         onClick={openEditor}
       >
         Edit username

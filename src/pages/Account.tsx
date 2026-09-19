@@ -3,6 +3,7 @@ import { supabase } from "../../supabase/supabase";
 import type { User } from "@supabase/supabase-js";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { TitleCard } from "../components/TitleCard";
 
 type AccountProps = {
   user: User | null;
@@ -31,18 +32,16 @@ export default function Account({ user, setUser }: AccountProps) {
       return;
     }
 
-      
+    const { error } = await supabase.functions.invoke("delete-user");
 
-      const { error } = await supabase.functions.invoke("delete-user");
+    if (error) {
+      console.error(error.message);
+      return;
+    }
 
-      if (error) {
-        console.error(error.message);
-        return;
-      }
-
-      setUser(null);
-      setIsDeleteModalOpen(false);
-      navigate("/login");
+    setUser(null);
+    setIsDeleteModalOpen(false);
+    navigate("/login");
   }
 
   const displayName =
@@ -53,16 +52,23 @@ export default function Account({ user, setUser }: AccountProps) {
 
   return (
     <div className="justify-center items-center flex-col flex gap-4">
-      <h1 className="text-xl font-ultra md:text-3xl">Account Page</h1>
+      <TitleCard eyebrow="Account" title="Change or delete your account here." />
+
       <div className="flex items-center gap-3">
         <p>User: {displayName}</p>
         {user && <UsernameEditor user={user} setUser={setUser} />}
       </div>
       <div className="flex gap-4">
-        <Button className="bg-blue-600 rounded-lg px-4 py-2" onClick={handleSignOut}>
+        <Button
+          className="bg-blue-600 rounded-lg px-4 py-2"
+          onClick={handleSignOut}
+        >
           <Link to="/login">Sign Out</Link>
         </Button>
-        <Button className="bg-red-600 rounded-lg px-4 py-2" onClick={() => setIsDeleteModalOpen(true)}>
+        <Button
+          className="bg-red-600 rounded-lg px-4 py-2"
+          onClick={() => setIsDeleteModalOpen(true)}
+        >
           Delete Account
         </Button>
       </div>

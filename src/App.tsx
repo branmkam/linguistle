@@ -24,6 +24,7 @@ import Account from "./pages/Account";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import type { User } from "@supabase/supabase-js";
 import About from "./pages/About";
+import NewGoogleAccount from "./pages/NewGoogleAccount";
 
 // archived game definition
 function ArchivedGame({ darkMode }: { darkMode: boolean }) {
@@ -86,7 +87,10 @@ function App() {
         <div className="font-homenaje text-center mx-auto max-w-300">
           {/* header */}
           <div className="fixed top-0 left-0 w-full z-50 text-2xl h-12 flex justify-between px-4 gap-4 items-center text-white  bg-gray-800">
-            <Link to="/" className="font-ultra hover:text-red-200">
+            <Link
+              to="/"
+              className="font-ultra hover:text-red-200 transition-all duration-200"
+            >
               Linguistle
             </Link>
             <div className="flex gap-4 text-base md:text-lg items-center">
@@ -147,7 +151,7 @@ function App() {
               <Route
                 path="/about"
                 element={
-                  <div className="p-6">
+                  <div className="px-6">
                     <About />
                   </div>
                 }
@@ -168,7 +172,7 @@ function App() {
               <Route
                 path="/help"
                 element={
-                  <div className="p-6">
+                  <div className="px-6">
                     {user ? (
                       <GameStats />
                     ) : (
@@ -176,7 +180,7 @@ function App() {
                         Please{" "}
                         <Link
                           to="/login"
-                          className="underline hover:text-purple-300"
+                          className="underline hover:text-red-200"
                         >
                           log in or sign up
                         </Link>{" "}
@@ -208,35 +212,40 @@ function App() {
                   </div>
                 }
               />
+              <Route
+                path="/new-google-account"
+                element={<NewGoogleAccount />}
+              />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>
           </div>
           {/* footer */}
-          <div className="font-ultra fixed bottom-0 left-0 w-full z-50 text-sm h-7 flex justify-center px-4 gap-4 items-center text-white bg-gray-800">
-            <div>
-              by{" "}
-              <a
-                rel="noreferrer"
-                target="_blank"
-                className="underline hover:text-purple-300"
-                href="https://www.instagram.com/brankam.gg"
-              >
-                brankam.gg
-              </a>{" "}
-              |{" "}
-              <a
-                rel="noreferrer"
-                target="_blank"
-                className="hover:text-purple-300"
-                href="mailto:brankamgg@gmail.com"
-              >
-                Contact
-              </a>{" "}
-              |{" "}
-              <Link to="/privacy-policy" className="hover:text-purple-300">
-                Privacy Policy
-              </Link>
-            </div>
+          <div className="font-ultra fixed bottom-0 left-0 w-full z-50 text-sm h-7 flex justify-center px-4 gap-2 items-center text-white bg-gray-800">
+            by{" "}
+            <a
+              rel="noreferrer"
+              target="_blank"
+              className="underline hover:text-red-200 duration-200 transition-ease-in-out"
+              href="https://www.instagram.com/brankam.gg"
+            >
+              brankam.gg
+            </a>{" "}
+            |{" "}
+            <a
+              rel="noreferrer"
+              target="_blank"
+              className="hover:text-red-200 duration-200 transition-ease-in-out"
+              href="mailto:brankamgg@gmail.com"
+            >
+              Contact
+            </a>{" "}
+            |{" "}
+            <Link
+              to="/privacy-policy"
+              className="hover:text-red-200 duration-200 transition-ease-in-out"
+            >
+              Privacy Policy
+            </Link>
           </div>
         </div>
       </div>

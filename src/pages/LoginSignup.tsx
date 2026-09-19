@@ -212,6 +212,7 @@ export default function LoginSignup({
     if (result.error) {
       setErrorMessage(result.error);
     }
+    navigate("/new-google-account");
   };
 
   return (

@@ -11,9 +11,7 @@ export default function Archive() {
   const currentIndex = Math.abs(daysPast) % langs.length;
 
   return (
-    <div
-      className="mx-auto max-w-4xl text-left px-4 py-8 justify-start flex flex-col gap-4"
-    >
+    <div className="mx-auto px-4 justify-start flex flex-col gap-4">
       <TitleCard
         eyebrow="Archive"
         title="Play the previous 10 normal rounds (totally free!)"

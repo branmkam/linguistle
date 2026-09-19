@@ -3,13 +3,13 @@ import { TitleCard } from "../components/TitleCard";
 
 export default function About() {
   return (
-    <div className="mx-auto max-w-4xl text-left sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-4xl sm:px-6 lg:px-8">
       <TitleCard
         eyebrow="About"
         title="Learn about the world's languages through Wordle-style deduction."
       />
 
-      <div className="flex flex-col gap-6">
+      <div className="flex justify-start text-left flex-col gap-6">
         <Card title="How did Linguistle come to be?">
           <p className="text-lg leading-7 text-slate-200">
             The game's creator is a software engineer and a language enthusiast
