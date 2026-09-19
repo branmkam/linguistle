@@ -17,7 +17,7 @@ export default function Homepage({ user }: { user: User | null }) {
       </h2>
       <p className="text-lg">
         In Linguistle, your job is not to identify a mystery language by how it
-        looks, but by its characteristics and features.
+        looks, but by its characteristics and location.
       </p>
       <p className="text-lg">More modes and games coming soon.</p>
       <h3 className="text-3xl font-ultra">

@@ -146,7 +146,11 @@ function App() {
               />
               <Route
                 path="/about"
-                element={<div className="p-6"><About /></div>}
+                element={
+                  <div className="p-6">
+                    <About />
+                  </div>
+                }
               />
               <Route path="/archive" element={<Archive />} />
               <Route
@@ -165,7 +169,20 @@ function App() {
                 path="/help"
                 element={
                   <div className="p-6">
-                   { user ? <GameStats /> : <p className="text-2xl">Please <Link to="/login" className="underline hover:text-purple-300">log in</Link> or <Link to="/signup" className="underline hover:text-purple-300">sign up</Link> to view your game stats.</p> }
+                    {user ? (
+                      <GameStats />
+                    ) : (
+                      <p className="text-2xl">
+                        Please{" "}
+                        <Link
+                          to="/login"
+                          className="underline hover:text-purple-300"
+                        >
+                          log in or sign up
+                        </Link>{" "}
+                        to view your game stats.
+                      </p>
+                    )}
                   </div>
                 }
               />
@@ -174,12 +191,19 @@ function App() {
                 element={
                   <div className="p-6">
                     <p>
-                      Your account creation was successful, but please verify your email address. Once you have done so,
-                      you can access your account.
+                      Your account creation was successful, but please verify
+                      your email address. Once you have done so, you can access
+                      your account.
                     </p>
                     <p>
                       Once you have verified, close this window or{" "}
-                      <Link className="text-blue-500 hover:text-blue-700" to="/login">navigate to the login page</Link>.
+                      <Link
+                        className="text-blue-500 hover:text-blue-700"
+                        to="/login"
+                      >
+                        navigate to the login page
+                      </Link>
+                      .
                     </p>
                   </div>
                 }
@@ -207,8 +231,8 @@ function App() {
                 href="mailto:brankamgg@gmail.com"
               >
                 Contact
-              </a>
-              {" "}|{" "}
+              </a>{" "}
+              |{" "}
               <Link to="/privacy-policy" className="hover:text-purple-300">
                 Privacy Policy
               </Link>
