@@ -5,6 +5,7 @@ import type { User } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { getUserGames } from "../../supabase/gameService";
 
+// only normal archive so far.
 export default function Archive({ user }: { user: User | null }) {
   const [playedDays, setPlayedDays] = useState<Set<number>>(new Set());
 
@@ -15,7 +16,15 @@ export default function Archive({ user }: { user: User | null }) {
     }
 
     getUserGames()
-      .then((games) => setPlayedDays(new Set(games.map((game) => game.day))))
+      .then((games) =>
+        setPlayedDays(
+          new Set(
+            games
+              .filter((game) => game.mode == "normal")
+              .map((game) => game.day),
+          ),
+        ),
+      )
       .catch((error) => console.error(error));
   }, [user]);
 

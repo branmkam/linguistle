@@ -1,23 +1,28 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const allowedOrigins = new Set([
+  "linguistle.com",
   "https://linguistle.com",
   "https://www.linguistle.com",
+  "https://linguistle.netlify.app",
   "http://localhost:5173",
 ]);
 
 function getCorsHeaders(request: Request) {
   const origin = request.headers.get("origin") ?? "";
-  return {
-    "Access-Control-Allow-Origin": allowedOrigins.has(origin)
-      ? origin
-      : "https://linguistle.com",
+  const headers: Record<string, string> = {
     "Access-Control-Allow-Headers":
       "authorization, x-client-info, apikey, content-type",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Content-Type": "application/json",
     Vary: "Origin",
   };
+
+  if (allowedOrigins.has(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
+  }
+
+  return headers;
 }
 
 Deno.serve(async (request) => {

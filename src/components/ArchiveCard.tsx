@@ -18,11 +18,11 @@ export default function ArchiveCard({
     >
       <h3 className="font-bold text-2xl md:text-4xl">#{day}</h3>
       {isPlayed ? (
-        <Button
-          className="bg-gray-400 text-black w-20 md:text-xl h-10"
-        >
-          Played
-        </Button>
+        <Link to={`/archive/${day}`}>
+          <Button className="bg-gray-400 text-black w-20 md:text-xl h-10">
+            Played
+          </Button>
+        </Link>
       ) : (
         <Link to={`/archive/${day}`}>
           <Button className="bg-blue-600 text-white w-20 md:text-xl h-10">

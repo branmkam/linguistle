@@ -131,22 +131,29 @@ export default function Game({
     .map((lang) => lang.iso639_3)
     .includes(currentLang.iso639_3);
 
-  const gameOver = foundLanguage || guessedLangs.length >= 8 || hasGivenUp;
+  const won = foundLanguage && guessedLangs.length <= 8;
+  const shouldCreateGame =
+    won || hasGivenUp || guessedLangs.length >= 8;
+  const gameOver = shouldCreateGame;
 
   useEffect(() => {
-    if (!gameOver || !existingGameChecked.current || hasSavedGame.current)
+    if (
+      !shouldCreateGame ||
+      !existingGameChecked.current ||
+      hasSavedGame.current
+    )
       return;
 
     const guessedIds = guessedLangs.map((lang) => lang.iso639_3);
 
-    createGame(guessedIds, foundLanguage, day, mode, currentScore)
+    createGame(guessedIds, won, day, mode, currentScore)
       .then(() => {
         hasSavedGame.current = true;
       })
       .catch((error) => {
         console.error("Failed to save game result:", error);
       });
-  }, [gameOver, hasGivenUp, foundLanguage, guessedLangs, day, mode, currentScore]);
+  }, [shouldCreateGame, won, guessedLangs, day, mode, currentScore]);
 
   const wikiName = currentLang.languageName
     .replace(/\s*\([^)]*\)\s*/g, "") // remove parentheses and contents

@@ -4,6 +4,7 @@ import { supabase } from "../../supabase/supabase";
 export async function ensureProfile(user: User) {
   const fallbackUsername = `user_${user.id.replaceAll("-", "").slice(0, 8)}`;
   const username =
+    user.user_metadata?.username ??
     user.user_metadata?.user_name ??
     user.user_metadata?.preferred_username ??
     fallbackUsername;
