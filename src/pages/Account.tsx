@@ -58,7 +58,7 @@ export default function Account({ user, setUser }: AccountProps) {
         <p>User: {displayName}</p>
         {user && <UsernameEditor user={user} setUser={setUser} />}
       </div>
-      {!(user?.user_metadata?.username) && <div className="flex items-center gap-3">
+      {user && <div className="flex items-center gap-3">
         <p>Email: {user?.email}</p>
       </div>}
       <div className="flex gap-4">
