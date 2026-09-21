@@ -35,17 +35,20 @@ export function score(guessedLangs: Language[], currentLang: Language): number {
   };
 
   // iterates thru guesses and checks each one to get best score
-  const chooseBest = (
-    currentBest: string,
-    nextStatus: string,
-  ) => {
+  const chooseBest = (currentBest: string, nextStatus: string) => {
     return rank(nextStatus) > rank(currentBest) ? nextStatus : currentBest;
   };
 
   const bestGuess = guessedLangs.reduce(
     (best, guess) => {
-      const fam = familyChecker(guess.languageFamily, currentLang.languageFamily);
-      const native = numberChecker(guess.nativeSpeakers, currentLang.nativeSpeakers);
+      const fam = familyChecker(
+        guess.languageFamily,
+        currentLang.languageFamily,
+      );
+      const native = numberChecker(
+        guess.nativeSpeakers,
+        currentLang.nativeSpeakers,
+      );
       const macro =
         guess.originContinent === currentLang.originContinent
           ? "correct"
@@ -80,7 +83,12 @@ export function score(guessedLangs: Language[], currentLang: Language): number {
     return 102 - 2 * guessedLangs.length;
   }
 
-  const checks = [bestGuess.fam, bestGuess.native, bestGuess.macro, bestGuess.distance];
+  const checks = [
+    bestGuess.fam,
+    bestGuess.native,
+    bestGuess.macro,
+    bestGuess.distance,
+  ];
   const total = checks.reduce((sum, result) => {
     if (result === "correct") return sum + 1;
     if (result === "partial") return sum + 0.5;
@@ -104,3 +112,14 @@ export function getCurrentDay(): number {
 }
 
 export const SEED = 2029; // DO NOT CHANGE SEED. This is used to shuffle the languages consistently across all users.
+
+const now = new Date();
+const utcMidnight = new Date(
+  Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
+);
+
+export const localResetTime = new Intl.DateTimeFormat(undefined, {
+  hour: "numeric",
+  minute: "2-digit",
+  timeZoneName: "short",
+}).format(utcMidnight);

@@ -1,5 +1,6 @@
 import { Card } from "../components/Card";
 import { TitleCard } from "../components/TitleCard";
+import { localResetTime } from "../utils";
 
 export default function About() {
   return (
@@ -51,6 +52,9 @@ export default function About() {
             All modes allow any language to be guessed for info, but the target
             language will always be in the specified range for that mode.
           </p>
+          <p className="text-2xl">
+            Games reset daily at midnight UTC <span className="font-bold">({localResetTime})</span>.
+          </p>
         </Card>
 
         <Card title="How many guesses do I get?">
@@ -77,7 +81,7 @@ export default function About() {
             </a>
             , combined with Wikidata's numbers for native speakers. If any data
             is wrong, missing, or seems off, reach out using the Contact link in
-            the footer, and I'll do my best to update any inaccuracies.
+            the footer, and we'll do our best to update any inaccuracies.
           </p>
 
           <p>
