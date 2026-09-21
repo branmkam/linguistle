@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMoon,
   faSun,
-  faQuestionCircle,
+  faChartBar,
 } from "@fortawesome/free-solid-svg-icons";
 import { GameStats } from "./components/GameStats";
 import Account from "./pages/Account";
@@ -128,11 +128,11 @@ function App() {
                 />{" "}
               </span>
               <Link
-                title="Help"
+                title="Stats"
                 to="/stats"
                 className="hover:text-red-200 transition-all duration-200"
               >
-                <FontAwesomeIcon icon={faQuestionCircle} />
+                <FontAwesomeIcon icon={faChartBar} />
               </Link>
               <Link
                 to="/about"

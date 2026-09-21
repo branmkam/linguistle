@@ -61,20 +61,30 @@ export default function About() {
           </p>
         </Card>
 
-        <Card title="Where is the language data from?">
-          This data is sourced openly from{" "}
-          <a
-            className="text-red-200
+        <Card title="About the language data">
+          <p>
+            {" "}
+            This data is sourced openly from{" "}
+            <a
+              className="text-red-200
             hover:underline"
-            href="
+              href="
             https://github.com/glottolog/glottolog-cldf"
-            rel="noreferrer"
-            target="_blank"
-          >
-            Glottolog
-          </a>
-          , combined with Wikidata's numbers for native speakers. If
-          any data is wrong, missing, or seems off, reach out using the Contact link in the footer.
+              rel="noreferrer"
+              target="_blank"
+            >
+              Glottolog
+            </a>
+            , combined with Wikidata's numbers for native speakers. If any data
+            is wrong, missing, or seems off, reach out using the Contact link in
+            the footer, and I'll do my best to update any inaccuracies.
+          </p>
+
+          <p>
+            The five areas of origin in the dataset are defined geographically
+            as follows:
+          </p>
+          <img src="/macroareas.png" className="pt-2 w-full" />
         </Card>
 
         <Card title="How is scoring calculated?">
