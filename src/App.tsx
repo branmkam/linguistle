@@ -138,7 +138,7 @@ function App() {
 
           {/* main content */}
 
-          <div className="pt-16 pb-8">
+          <div className="pt-16 pb-12">
             <Routes>
               <Route path="/" element={<Homepage user={user} />} />
               <Route
@@ -225,7 +225,7 @@ function App() {
             </Routes>
           </div>
           {/* footer */}
-          <div className="font-ultra fixed bottom-0 left-0 w-full z-50 text-sm h-7 flex justify-center px-4 gap-2 items-center text-white bg-gray-800">
+          <div className="font-ultra fixed bottom-0 left-0 w-full z-50 text-xs h-7 flex justify-center px-4 gap-1 items-center text-white bg-gray-800">
             by{" "}
             <a
               rel="noreferrer"

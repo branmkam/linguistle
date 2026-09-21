@@ -20,3 +20,7 @@
     transform: perspective(400px) rotateX(0deg);
   }
 }
+
+.nl-wrap {
+  display: none !important;
+}

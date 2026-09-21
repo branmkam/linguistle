@@ -34,16 +34,18 @@ export default function About() {
           </p>
           <p className="text-lg leading-7 text-slate-200">
             In Easy mode, the target language will be one with{" "}
-            <b>more than 40 million speakers</b> - the most familiar and widely spoken languages.
+            <b>more than 40 million speakers</b> - the most familiar and widely
+            spoken languages.
           </p>
           <p className="text-lg leading-7 text-slate-200">
             In Normal mode, the target language will be one with{" "}
-            <b>more than 10 million speakers</b> - still common, but a bit more varied.
+            <b>more than 10 million speakers</b> - still common, but a bit more
+            varied.
           </p>
           <p className="text-lg leading-7 text-slate-200">
             In Hard mode, the target language will be one with{" "}
-            <b>between 1 and 50 million speakers</b>, allowing for an opportunity to learn about lesser-spoken
-            languages.
+            <b>between 1 and 50 million speakers</b>, allowing for an
+            opportunity to learn about lesser-spoken languages.
           </p>
           <p className="text-lg leading-7 text-slate-200">
             All modes allow any language to be guessed for info, but the target
@@ -54,8 +56,25 @@ export default function About() {
         <Card title="How many guesses do I get?">
           <p className="text-lg leading-7 text-slate-200">
             You have eight guesses to identify the target language. If you can't
-            do it in eight guesses, the language will be revealed to you along with your score.
+            do it in eight guesses, the language will be revealed to you along
+            with your score.
           </p>
+        </Card>
+
+        <Card title="Where is the language data from?">
+          This data is sourced openly from{" "}
+          <a
+            className="text-red-200
+            hover:underline"
+            href="
+            https://github.com/glottolog/glottolog-cldf"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Glottolog
+          </a>
+          , combined with Wikidata's numbers for native speakers. If
+          any data is wrong, missing, or seems off, reach out using the Contact link in the footer.
         </Card>
 
         <Card title="How is scoring calculated?">
@@ -71,10 +90,14 @@ export default function About() {
           </p>
           <p className="mt-3 text-lg leading-7 text-slate-200">
             If the target is not solved within the allowed guesses, the score is
-            still based on the strongest information you gathered. <span className="text-green-400">Correct
-            matches</span> score as full value, <span className="text-yellow-400">partial matches</span> as half-value, and 
-            {" "}<span className="text-red-400">wrong matches</span> as zero. The system also adds a distance-based bonus
-            based on how close your nearest guess came to the actual language. Each of the four checks has equal weight: 25%.
+            still based on the strongest information you gathered.{" "}
+            <span className="text-green-400">Correct matches</span> score as
+            full value, <span className="text-yellow-400">partial matches</span>{" "}
+            as half-value, and{" "}
+            <span className="text-red-400">wrong matches</span> as zero. The
+            system also adds a distance-based bonus based on how close your
+            nearest guess came to the actual language. Each of the four checks
+            has equal weight: 25%.
           </p>
           <p className="mt-3 text-lg leading-7 text-slate-200">
             Example: correct language family = 25 points + close number of
