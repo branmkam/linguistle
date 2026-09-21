@@ -1,11 +1,11 @@
 // hooks/useGameData.ts
 import { useEffect, useState } from "react";
 import { getUserGames, getUserStats } from "../../supabase/gameService";
-import type { Game, Stats } from "../../supabase/types";
+import type { Game, StatsByMode } from "../../supabase/types";
 
 export function useGameData() {
   const [games, setGames] = useState<Game[]>([]);
-  const [stats, setStats] = useState<Stats | null>(null);
+  const [stats, setStats] = useState<StatsByMode | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export function useGameData() {
       try {
         const userGames = await getUserGames();
         setGames(userGames);
-        const userStats = await getUserStats();
+        const userStats = getUserStats(userGames);
         setStats(userStats);
       } catch (error) {
         console.error("Error loading games:", error);

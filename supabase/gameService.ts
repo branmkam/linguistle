@@ -1,5 +1,6 @@
 import { supabase } from "./supabase";
-import type { Game, Profile } from "./types";
+import { gameModes } from "./types";
+import type { Game, Profile, Stats, StatsByMode } from "./types";
 
 // Get current user's profile
 export async function getUserProfile() {
@@ -76,8 +77,16 @@ export async function updateGame(gameId: string, updates: Partial<Game>) {
 }
 
 // Get stats for current user
-export async function getUserStats() {
-  const games = await getUserGames();
+export function getUserStats(games: Game[]): StatsByMode {
+  return Object.fromEntries(
+    gameModes.map((mode) => [
+      mode,
+      calculateStats(games.filter((game) => game.mode === mode)),
+    ]),
+  ) as StatsByMode;
+}
+
+function calculateStats(games: Game[]): Stats {
   const totalGames = games.length;
   const wins = games.filter((g) => g.solved).length;
   const winRate = totalGames > 0 ? (wins / totalGames) * 100 : 0;
@@ -96,14 +105,17 @@ export async function getUserStats() {
     winRate: Number(winRate.toFixed(1)),
     currentStreak,
     averageGuesses: Number(averageGuesses.toFixed(1)),
-    averageScore: Number(
-      (
-        games.reduce(
-          (sum, g) => sum + (typeof g.score === "number" ? g.score : 0),
-          0,
-        ) / totalGames
-      ).toFixed(1),
-    ),
+    averageScore:
+      totalGames > 0
+        ? Number(
+            (
+              games.reduce(
+                (sum, g) => sum + (typeof g.score === "number" ? g.score : 0),
+                0,
+              ) / totalGames
+            ).toFixed(1),
+          )
+        : 0,
   };
 }
 

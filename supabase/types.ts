@@ -10,6 +10,10 @@ export interface Game {
   score: number;
 }
 
+export type GameMode = "easy" | "normal" | "hard";
+
+export const gameModes: GameMode[] = ["easy", "normal", "hard"];
+
 export interface Profile {
   id: string;
   username: string;
@@ -28,3 +32,5 @@ export interface Stats {
   averageGuesses: number;
   averageScore: number;
 }
+
+export type StatsByMode = Record<GameMode, Stats>;
