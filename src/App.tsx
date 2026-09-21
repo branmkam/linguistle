@@ -65,21 +65,40 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
-    async function fetchUser() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+    let isMounted = true;
 
-      if (user) {
-        const profileError = await ensureProfile(user);
-        if (profileError) {
-          console.error(profileError.message);
+    async function syncUser(nextUser: User | null) {
+      if (!nextUser) {
+        if (isMounted) {
+          setUser(null);
         }
-        setUser(user);
+        return;
+      }
+
+      const profileError = await ensureProfile(nextUser);
+      if (profileError) {
+        console.error(profileError.message);
+      }
+
+      if (isMounted) {
+        setUser(nextUser);
       }
     }
 
-    fetchUser();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      void syncUser(user);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      void syncUser(session?.user ?? null);
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const isLoggedIn = Boolean(user);
