@@ -52,13 +52,15 @@ export default function Game({
   const [guessedLangs, setGuessedLangs] = useState<Language[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [hasGivenUp, setHasGivenUp] = useState(false);
+  const [existingGameCheckedFor, setExistingGameCheckedFor] = useState<
+    string | null
+  >(null);
   const hasSavedGame = useRef(false);
-  const existingGameChecked = useRef(false);
 
   useEffect(() => {
     let isActive = true;
     hasSavedGame.current = false;
-    existingGameChecked.current = false;
+    const gameKey = `${day}:${mode}`;
 
     async function loadExistingGame() {
       const {
@@ -78,7 +80,7 @@ export default function Game({
 
       if (error) {
         console.error("Error checking game:", error);
-        existingGameChecked.current = true;
+        setExistingGameCheckedFor(gameKey);
         return;
       }
 
@@ -109,7 +111,7 @@ export default function Game({
         setGuessedLangs(restoredGuesses);
       }
 
-      existingGameChecked.current = true;
+      setExistingGameCheckedFor(gameKey);
     }
 
     loadExistingGame();
@@ -139,7 +141,7 @@ export default function Game({
   useEffect(() => {
     if (
       !shouldCreateGame ||
-      !existingGameChecked.current ||
+      existingGameCheckedFor !== `${day}:${mode}` ||
       hasSavedGame.current
     )
       return;
@@ -153,7 +155,15 @@ export default function Game({
       .catch((error) => {
         console.error("Failed to save game result:", error);
       });
-  }, [shouldCreateGame, won, guessedLangs, day, mode, currentScore]);
+  }, [
+    shouldCreateGame,
+    existingGameCheckedFor,
+    won,
+    guessedLangs,
+    day,
+    mode,
+    currentScore,
+  ]);
 
   const wikiName = currentLang.languageName
     .replace(/\s*\([^)]*\)\s*/g, "") // remove parentheses and contents
