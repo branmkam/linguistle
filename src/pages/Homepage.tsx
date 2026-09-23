@@ -29,8 +29,11 @@ export default function Homepage({ user }: { user: User | null }) {
         </p>
       )}
       <p className="text-lg">
-        More modes and games coming soon. <span className="font-bold">Games reset at midnight UTC (
-        {localResetTime})</span>.
+        More modes and games coming soon.{" "}
+        <span className="font-bold">
+          Games reset at midnight UTC ({localResetTime})
+        </span>
+        .
       </p>
       <h3 className="text-3xl font-ultra">
         <span className="text-amber-600">Day {getCurrentDay()}</span> |{" "}

@@ -13,6 +13,8 @@ type AccountProps = {
 export default function Account({ user, setUser }: AccountProps) {
   const navigate = useNavigate();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   async function handleSignOut() {
     const { error } = await supabase.auth.signOut();
@@ -32,14 +34,23 @@ export default function Account({ user, setUser }: AccountProps) {
       return;
     }
 
-    const { error } = await supabase.functions.invoke("delete-user");
+    setDeleteError("");
+    setIsDeleting(true);
+
+    const { error } = await supabase.functions.invoke("delete-user", {
+      body: {},
+    });
 
     if (error) {
-      console.error(error.message);
+      console.error("Account deletion failed:", error);
+      setDeleteError(error.message);
+      setIsDeleting(false);
       return;
     }
 
+    await supabase.auth.signOut();
     setUser(null);
+    setIsDeleting(false);
     setIsDeleteModalOpen(false);
     navigate("/login");
   }
@@ -79,18 +90,25 @@ export default function Account({ user, setUser }: AccountProps) {
         <Modal>
           <h2 className="text-xl font-bold">Delete your account?</h2>
           <p className="text-center">This action cannot be undone.</p>
+          {deleteError && (
+            <p className="text-red-500 text-center" role="alert">
+              {deleteError}
+            </p>
+          )}
           <div className="flex gap-4 mt-4">
             <Button
               className="bg-gray-300 px-4 py-2"
+              disabled={isDeleting}
               onClick={() => setIsDeleteModalOpen(false)}
             >
               Cancel
             </Button>
             <Button
               className="bg-red-600 text-white px-4 py-2"
+              disabled={isDeleting}
               onClick={handleDeleteAccount}
             >
-              Delete
+              {isDeleting ? "Deleting..." : "Delete"}
             </Button>
           </div>
         </Modal>

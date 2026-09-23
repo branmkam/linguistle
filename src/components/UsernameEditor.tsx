@@ -3,7 +3,6 @@ import type { User } from "@supabase/supabase-js";
 import { supabase } from "../../supabase/supabase";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
-import { ensureProfile } from "../utils/profile";
 
 type UsernameEditorProps = {
   user: User;
@@ -38,13 +37,6 @@ export function UsernameEditor({ user, setUser }: UsernameEditorProps) {
     setErrorMessage("");
     setIsSaving(true);
 
-    const profileSetupError = await ensureProfile(user);
-    if (profileSetupError) {
-      setErrorMessage("Unable to update your username. Please try again.");
-      setIsSaving(false);
-      return;
-    }
-
     const { data: existingProfile, error: availabilityError } = await supabase
       .from("profiles")
       .select("id")
@@ -64,12 +56,14 @@ export function UsernameEditor({ user, setUser }: UsernameEditorProps) {
       return;
     }
 
-    const { error: profileError } = await supabase
+    const { data: updatedProfile, error: profileError } = await supabase
       .from("profiles")
       .update({ username: normalizedUsername })
-      .eq("id", user.id);
+      .eq("id", user.id)
+      .select("id")
+      .maybeSingle();
 
-    if (profileError) {
+    if (profileError || !updatedProfile) {
       setErrorMessage("Unable to update your username. Please try again.");
       setIsSaving(false);
       return;
