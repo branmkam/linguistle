@@ -20,7 +20,7 @@ export async function ensureProfile(user: User) {
         tier: "free",
         created_at: new Date().toISOString(),
       },
-      { onConflict: "id" },
+      { onConflict: "id", ignoreDuplicates: true },
     );
 
   return error;

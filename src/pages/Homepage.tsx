@@ -12,15 +12,17 @@ export default function Homepage({ user }: { user: User | null }) {
         Welcome to Linguistle
         {user?.user_metadata?.display_name
           ? `, ${user.user_metadata.display_name}`
-          : ""}
+          : user
+            ? user.email
+            : ""}
         !
       </h2>
-      <p className="text-lg">
+      <p className="text-lg px-4">
         In Linguistle, your job is not to identify a mystery language by how it
         looks, but by its characteristics and location.
       </p>
       {user && !user.user_metadata?.username?.trim() && (
-        <p className="text-lg text-amber-300">
+        <p className="text-lg px-4 text-amber-300">
           Choose a username to finish setting up your account.{" "}
           <Link to="/account" className="underline hover:text-amber-100">
             Update your username
@@ -28,7 +30,7 @@ export default function Homepage({ user }: { user: User | null }) {
           .
         </p>
       )}
-      <p className="text-lg">
+      <p className="text-lg px-4">
         More modes and games coming soon.{" "}
         <span className="font-bold">
           Games reset at midnight UTC ({localResetTime})
@@ -45,33 +47,33 @@ export default function Homepage({ user }: { user: User | null }) {
         })}
       </h3>
       <h2 className="text-2xl font-semibold mb-4">Choose your difficulty:</h2>
-      <div className="flex flex-col items-center w-80 gap-4">
+      <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="flex items-center justify-between text-white w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
           <Button
             onClick={() => navigate("/daily/easy")}
-            className="bg-green-700 px-6 w-28 py-3 md:text-2xl"
+            className="bg-green-700 px-6 w-20 md:w-28 py-3 md:text-2xl"
           >
             Easy
           </Button>
-          <p className="text-xl">{">40 mil. speakers"}</p>
+          <p className="text-xl w-24">{">40 mil. speakers"}</p>
         </div>
         <div className="flex items-center justify-between text-white w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
           <Button
             onClick={() => navigate("/daily/normal")}
-            className="bg-blue-700 px-6 w-28 py-3 md:text-2xl"
+            className="bg-blue-700 px-6 w-20 md:w-28 py-3 md:text-2xl"
           >
             Normal
           </Button>
-          <p className="text-xl">{">10 mil. speakers"}</p>
+          <p className="text-xl w-24">{">10 mil. speakers"}</p>
         </div>
         <div className="flex items-center justify-between text-white w-full min-h-20 bg-slate-700/90 p-4 rounded-lg border-white">
           <Button
             onClick={() => navigate("/daily/hard")}
-            className="bg-red-700 px-6 w-28 py-3 md:text-2xl"
+            className="bg-red-700 px-6 w-20 md:w-28 py-3 md:text-2xl"
           >
             Hard
           </Button>
-          <p className="text-xl">{"1 to 50 mil. speakers"}</p>
+          <p className="text-xl w-24">{"1 to 50 mil. speakers"}</p>
         </div>
       </div>
     </div>
