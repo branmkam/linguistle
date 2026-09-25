@@ -126,6 +126,22 @@ describe("Game completion saves", () => {
     });
   });
 
+  it("shows a copied confirmation after sharing the score", async () => {
+    const user = userEvent.setup();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: { writeText },
+    });
+    render(<Game day={0} />);
+
+    await user.click(screen.getByRole("button", { name: "English" }));
+    await user.click(screen.getByRole("button", { name: "Share" }));
+
+    expect(writeText).toHaveBeenCalledOnce();
+    expect(screen.getByRole("button", { name: "Copied!" })).toBeTruthy();
+  });
+
   it("saves a given-up game with its guesses and an unsolved flag", async () => {
     const user = userEvent.setup();
     render(<Game day={0} />);

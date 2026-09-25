@@ -62,6 +62,7 @@ export async function getUserGames() {
 
   if (error) throw error;
   return data as Game[];
+  
 }
 
 // Delete the current user's Supabase Auth account through the admin function.

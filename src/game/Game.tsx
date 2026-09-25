@@ -51,6 +51,7 @@ export default function Game({
 
   const [guessedLangs, setGuessedLangs] = useState<Language[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [scoreCopied, setScoreCopied] = useState(false);
   const [hasGivenUp, setHasGivenUp] = useState(false);
   const [existingGameCheckedFor, setExistingGameCheckedFor] = useState<
     string | null
@@ -324,15 +325,16 @@ export default function Game({
                   await navigator.clipboard.writeText(
                     shareText + "\nhttps://linguistle.com",
                   );
+                  setScoreCopied(true);
                 } catch {
                   alert("Failed to copy to clipboard.");
                 }
               }}
-              className="mt-4 px-4 py-2 bg-blue-500 text-2xl w-24 text-white rounded-2xl"
+              className={`mt-4 px-4 py-2 ${scoreCopied ? "bg-green-600" : "bg-blue-500"} text-2xl w-24 text-white rounded-2xl`}
             >
               <span className="flex items-center justify-center gap-2">
                 <FontAwesomeIcon icon={faShareAlt} />
-                <span>Share</span>
+                <span>{scoreCopied ? "Copied!" : "Share"}</span>
               </span>
             </Button>
             <Button
