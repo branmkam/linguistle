@@ -4,6 +4,7 @@ import type { User } from "@supabase/supabase-js";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { TitleCard } from "../components/TitleCard";
+import { deleteUserAccount } from "../../supabase/gameService";
 
 type AccountProps = {
   user: User | null;
@@ -37,13 +38,13 @@ export default function Account({ user, setUser }: AccountProps) {
     setDeleteError("");
     setIsDeleting(true);
 
-    const { error } = await supabase.functions.invoke("delete-user", {
-      body: {},
-    });
-
-    if (error) {
+    try {
+      await deleteUserAccount();
+    } catch (error) {
       console.error("Account deletion failed:", error);
-      setDeleteError(error.message);
+      setDeleteError(
+        error instanceof Error ? error.message : "Unable to delete account."
+      );
       setIsDeleting(false);
       return;
     }

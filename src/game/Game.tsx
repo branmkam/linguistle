@@ -134,13 +134,11 @@ export default function Game({
     .includes(currentLang.iso639_3);
 
   const won = foundLanguage && guessedLangs.length <= 8;
-  const shouldCreateGame =
-    won || hasGivenUp || guessedLangs.length >= 8;
-  const gameOver = shouldCreateGame;
+  const gameOver = won || hasGivenUp || guessedLangs.length >= 8;
 
   useEffect(() => {
     if (
-      !shouldCreateGame ||
+      !gameOver ||
       existingGameCheckedFor !== `${day}:${mode}` ||
       hasSavedGame.current
     )
@@ -148,7 +146,7 @@ export default function Game({
 
     const guessedIds = guessedLangs.map((lang) => lang.iso639_3);
 
-    createGame(guessedIds, won, day, mode, currentScore)
+    createGame(guessedIds, won, day, mode, Math.round(currentScore))
       .then(() => {
         hasSavedGame.current = true;
       })
@@ -156,7 +154,7 @@ export default function Game({
         console.error("Failed to save game result:", error);
       });
   }, [
-    shouldCreateGame,
+    gameOver,
     existingGameCheckedFor,
     won,
     guessedLangs,

@@ -1,5 +1,6 @@
 import { supabase } from "./supabase";
 import { gameModes } from "./types";
+import type { User } from "@supabase/supabase-js";
 import type { Game, Profile, Stats, StatsByMode } from "./types";
 
 // Get current user's profile
@@ -61,6 +62,45 @@ export async function getUserGames() {
 
   if (error) throw error;
   return data as Game[];
+}
+
+// Delete the current user's Supabase Auth account through the admin function.
+export async function deleteUserAccount() {
+  const { error } = await supabase.functions.invoke("delete-user", {
+    body: {},
+  });
+
+  if (error) throw error;
+}
+
+export async function updateUsername(user: User, username: string) {
+  const { data: existingProfile, error: availabilityError } = await supabase
+    .from("profiles")
+    .select("id")
+    .ilike("username", username)
+    .neq("id", user.id)
+    .maybeSingle();
+
+  if (availabilityError) throw availabilityError;
+  if (existingProfile) throw new Error("That username is already taken.");
+
+  const { error: profileError } = await supabase.from("profiles").upsert(
+    { id: user.id, username },
+    { onConflict: "id" },
+  );
+
+  if (profileError) throw profileError;
+
+  const { data, error: metadataError } = await supabase.auth.updateUser({
+    data: {
+      ...user.user_metadata,
+      username,
+      display_name: username,
+    },
+  });
+
+  if (metadataError) throw metadataError;
+  return data.user ?? user;
 }
 
 // Update a game (if needed)

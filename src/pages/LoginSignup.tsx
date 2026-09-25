@@ -6,11 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 function getAuthRedirectUrl() {
-  const configuredUrl =
-    import.meta.env.VITE_APP_URL ||
-    import.meta.env.VITE_SITE_URL ||
-    window.location.origin;
-  return `${configuredUrl.replace(/\/$/, "")}/`;
+  return `${window.location.origin}/`;
 }
 
 // Email/password sign-in and sign-up flows are intentionally disabled.

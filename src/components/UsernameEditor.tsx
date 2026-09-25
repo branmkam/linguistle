@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import type { User } from "@supabase/supabase-js";
-import { supabase } from "../../supabase/supabase";
+import { updateUsername } from "../../supabase/gameService";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
 
@@ -37,58 +37,20 @@ export function UsernameEditor({ user, setUser }: UsernameEditorProps) {
     setErrorMessage("");
     setIsSaving(true);
 
-    const { data: existingProfile, error: availabilityError } = await supabase
-      .from("profiles")
-      .select("id")
-      .ilike("username", normalizedUsername)
-      .neq("id", user.id)
-      .maybeSingle();
-
-    if (availabilityError) {
-      setErrorMessage("Unable to check username availability. Please try again.");
-      setIsSaving(false);
-      return;
-    }
-
-    if (existingProfile) {
-      setErrorMessage("That username is already taken.");
-      setIsSaving(false);
-      return;
-    }
-
-    const { data: updatedProfile, error: profileError } = await supabase
-      .from("profiles")
-      .update({ username: normalizedUsername })
-      .eq("id", user.id)
-      .select("id")
-      .maybeSingle();
-
-    if (profileError || !updatedProfile) {
-      setErrorMessage("Unable to update your username. Please try again.");
-      setIsSaving(false);
-      return;
-    }
-
-    const { data: updatedUser, error: metadataError } =
-      await supabase.auth.updateUser({
-        data: {
-          ...user.user_metadata,
-          username: normalizedUsername,
-          display_name: normalizedUsername,
-        },
-      });
-
-    if (metadataError) {
+    try {
+      const updatedUser = await updateUsername(user, normalizedUsername);
+      setUser(updatedUser);
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Username update failed:", error);
       setErrorMessage(
-        "Username saved, but your account display could not be refreshed."
+        error instanceof Error
+          ? error.message
+          : "Unable to update your username. Please try again."
       );
+    } finally {
       setIsSaving(false);
-      return;
     }
-
-    setUser(updatedUser.user ?? user);
-    setIsSaving(false);
-    setIsOpen(false);
   }
 
   return (
