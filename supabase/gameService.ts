@@ -84,12 +84,26 @@ export async function updateUsername(user: User, username: string) {
   if (availabilityError) throw availabilityError;
   if (existingProfile) throw new Error("That username is already taken.");
 
-  const { error: profileError } = await supabase.from("profiles").upsert(
-    { id: user.id, username },
-    { onConflict: "id" },
-  );
+  const { data: profile, error: profileUpdateError } = await supabase
+    .from("profiles")
+    .update({ username })
+    .eq("id", user.id)
+    .select("id")
+    .maybeSingle();
 
-  if (profileError) throw profileError;
+  if (profileUpdateError) throw profileUpdateError;
+
+  if (!profile) {
+    const { error: profileInsertError } = await supabase.from("profiles").insert({
+      id: user.id,
+      email: user.email ?? null,
+      username,
+      tier: "free",
+      created_at: new Date().toISOString(),
+    });
+
+    if (profileInsertError) throw profileInsertError;
+  }
 
   const { data, error: metadataError } = await supabase.auth.updateUser({
     data: {
