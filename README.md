@@ -73,3 +73,16 @@ export default defineConfig([
 ])
 
 ```
+
+## get started: backend
+
+npm install @supabase/server
+
+set environment variables in a .env file at root level
+
+to run supabase commands without installing supabase prefix with npx
+
+useful commands
+- npx supabase login (login to supabase)
+- npx supabase link --project-ref <project-id> (link to project)
+- npx supabase functions deploy <function-name> (deploy function for use)

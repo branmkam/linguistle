@@ -1,7 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const allowedOrigins = new Set([
-  "linguistle.com",
   "https://linguistle.com",
   "https://www.linguistle.com",
   "https://linguistle.netlify.app",
@@ -25,7 +24,7 @@ function getCorsHeaders(request: Request) {
   return headers;
 }
 
-Deno.serve(async (request) => {
+Deno.serve(async (request: Request) => {
   const corsHeaders = getCorsHeaders(request);
 
   if (request.method === "OPTIONS") {

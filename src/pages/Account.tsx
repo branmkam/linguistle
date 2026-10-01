@@ -4,7 +4,7 @@ import type { User } from "@supabase/supabase-js";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { TitleCard } from "../components/TitleCard";
-import { deleteUserAccount } from "../../supabase/gameService";
+import { deleteUserAccount } from "../../supabase/authService";
 
 type AccountProps = {
   user: User | null;
@@ -49,7 +49,7 @@ export default function Account({ user, setUser }: AccountProps) {
       return;
     }
 
-    await supabase.auth.signOut();
+    await supabase.auth.signOut({ scope: "local" }); // local, since the server session is gone
     setUser(null);
     setIsDeleting(false);
     setIsDeleteModalOpen(false);
