@@ -65,14 +65,7 @@ export async function getUserGames() {
   
 }
 
-// Delete the current user's Supabase Auth account through the admin function.
-export async function deleteUserAccount() {
-  const { error } = await supabase.functions.invoke("delete-user", {
-    body: {},
-  });
 
-  if (error) throw error;
-}
 
 export async function updateUsername(user: User, username: string) {
   const { data: existingProfile, error: availabilityError } = await supabase
