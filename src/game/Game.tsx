@@ -319,8 +319,24 @@ export default function Game({
             <Button
               onClick={async () => {
                 const shareText = foundLanguage
-                  ? `LINGUISTLE ${mode} #${day} (${new Date(new Date().setUTCDate(new Date(2026, 8, 1).getUTCDate() + day)).toLocaleDateString()})\nScore: ${currentScore.toFixed(0)} 🟩 — solved in ${guessedLangs.length} guesses`
-                  : `LINGUISTLE ${mode} #${day} (${new Date(new Date().setUTCDate(new Date(2026, 8, 1).getUTCDate() + day)).toLocaleDateString()})\nScore: ${currentScore.toFixed(0)} 🟥`;
+                  ? `LINGUISTLE ${mode} #${day} (${new Date().toLocaleDateString(
+                      undefined,
+                      {
+                        month: "numeric",
+                        day: "numeric",
+                        year: "numeric",
+                        timeZone: "UTC",
+                      },
+                    )})\nScore: ${currentScore.toFixed(0)} 🟩 — solved in ${guessedLangs.length} guesses`
+                  : `LINGUISTLE ${mode} #${day} (${new Date().toLocaleDateString(
+                      undefined,
+                      {
+                        month: "numeric",
+                        day: "numeric",
+                        year: "numeric",
+                        timeZone: "UTC",
+                      },
+                    )})\nScore: ${currentScore.toFixed(0)} 🟥`;
                 try {
                   await navigator.clipboard.writeText(
                     shareText + "\nhttps://linguistle.com",
