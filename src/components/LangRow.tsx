@@ -2,6 +2,7 @@ import type { Language } from "../utils/types";
 import { TableCell } from "./TableCell";
 import { familyChecker, numberArrow, numberChecker, distanceChecker } from "../utils/checkers";
 import { haversineKm } from "../utils/haversine";
+import { arrowFinder } from "../utils";
 
 export function LangRow({
   language,
@@ -51,7 +52,7 @@ export function LangRow({
           const lat2 = currentLanguage.latitude ?? 0;
           const lon2 = currentLanguage.longitude ?? 0;
           const dist = Math.round(haversineKm(lat1, lon1, lat2, lon2));
-          return `${dist} km`;
+          return `${dist} km ${arrowFinder(lat1, lon1, lat2, lon2)}`;
         })()}
       </TableCell>
     </>

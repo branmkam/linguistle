@@ -123,3 +123,13 @@ export const localResetTime = new Intl.DateTimeFormat(undefined, {
   minute: "2-digit",
   timeZoneName: "short",
 }).format(utcMidnight);
+
+
+export function arrowFinder (lat1: number, lon1: number, lat2: number, lon2: number): string {
+  const ratio = 360 / (Math.PI * 2);
+  const angleRad = Math.atan2(lon2 - lon1, lat2 - lat1);
+  const angleDeg = angleRad * ratio;
+  const arrows = ['↑', '↗', '→', '↘', '↓', '↙', '←', '↖'];
+  const index = Math.round(((angleDeg + 360) % 360) / 45) % 8;
+  return arrows[index];
+}
