@@ -51,6 +51,7 @@ export default function Game({
 
   const [guessedLangs, setGuessedLangs] = useState<Language[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [showGiveUpModal, setShowGiveUpModal] = useState(false);
   const [scoreCopied, setScoreCopied] = useState(false);
   const [hasGivenUp, setHasGivenUp] = useState(false);
   const [existingGameCheckedFor, setExistingGameCheckedFor] = useState<
@@ -214,10 +215,7 @@ export default function Game({
               }}
             />
             <Button
-              onClick={() => {
-                setHasGivenUp(true);
-                setShowModal(true);
-              }}
+              onClick={() => setShowGiveUpModal(true)}
               className="text-white rounded-3xl md:text-2xl w-34 bg-red-700 px-4 py-2 hover:bg-red-400"
               disabled={gameOver}
             >
@@ -272,6 +270,30 @@ export default function Game({
           />
         ))}
       </div>
+
+      {showGiveUpModal && (
+        <Modal>
+          <h2 className="text-xl font-bold">Give up this game?</h2>
+          <div className="mt-3 flex justify-center gap-3">
+            <Button
+              onClick={() => setShowGiveUpModal(false)}
+              className="bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                setShowGiveUpModal(false);
+                setHasGivenUp(true);
+                setShowModal(true);
+              }}
+              className="bg-red-700 px-4 py-2 text-white hover:bg-red-600"
+            >
+              Give up
+            </Button>
+          </div>
+        </Modal>
+      )}
 
       {showModal && (
         <Modal>

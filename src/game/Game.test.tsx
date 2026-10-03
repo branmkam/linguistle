@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ComponentProps, ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -149,6 +149,12 @@ describe("Game completion saves", () => {
     await user.click(screen.getByRole("button", { name: "Spanish" }));
     await user.click(screen.getByRole("button", { name: "French" }));
     await user.click(screen.getByRole("button", { name: "Give up" }));
+    expect(createGameMock).not.toHaveBeenCalled();
+    await user.click(
+      within(screen.getByRole("dialog")).getByRole("button", {
+        name: "Give up",
+      }),
+    );
 
     await waitFor(() => {
       expect(createGameMock).toHaveBeenCalledWith(
@@ -159,6 +165,17 @@ describe("Game completion saves", () => {
         124,
       );
     });
+  });
+
+  it("does not give up when the confirmation is canceled", async () => {
+    const user = userEvent.setup();
+    render(<Game day={0} />);
+
+    await user.click(screen.getByRole("button", { name: "Give up" }));
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
+
+    expect(createGameMock).not.toHaveBeenCalled();
+    expect(screen.getByRole("button", { name: "Give up" })).toBeTruthy();
   });
 
   it("saves a game after eight incorrect guesses as unsolved", async () => {

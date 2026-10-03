@@ -131,5 +131,5 @@ export function arrowFinder (lat1: number, lon1: number, lat2: number, lon2: num
   const angleDeg = angleRad * ratio;
   const arrows = ['↑', '↗', '→', '↘', '↓', '↙', '←', '↖'];
   const index = Math.round(((angleDeg + 360) % 360) / 45) % 8;
-  return arrows[index];
+  return lat1 === lat2 && lon1 === lon2 ? '' : arrows[index];
 }
