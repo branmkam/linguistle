@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareAlt } from "@fortawesome/free-solid-svg-icons";
 import raw from "../data/withFamily.json";
@@ -49,6 +50,7 @@ export default function Game({
     return speakers > 10_000_000;
   });
 
+  const [user, setUser] = useState<User | null>(null);
   const [guessedLangs, setGuessedLangs] = useState<Language[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [showGiveUpModal, setShowGiveUpModal] = useState(false);
@@ -66,15 +68,19 @@ export default function Game({
 
     async function loadExistingGame() {
       const {
-        data: { user },
+        data: { user: authUser },
       } = await supabase.auth.getUser();
 
-      if (!user || !isActive) return;
+      if (!isActive) return;
+
+      setUser(authUser);
+
+      if (!authUser) return;
 
       const { data, error } = await supabase
         .from("games")
         .select("*")
-        .eq("user_id", user.id)
+        .eq("user_id", authUser.id)
         .eq("day", day)
         .eq("mode", mode);
 
@@ -273,7 +279,7 @@ export default function Game({
 
       {showGiveUpModal && (
         <Modal>
-          <h2 className="text-xl font-bold">Give up this game?</h2>
+          <h2 className="text-xl font-bold">Give up? You won't be able to guess any more languages{user ? ', and this will count as a loss in your stats.' : '.'}</h2>
           <div className="mt-3 flex justify-center gap-3">
             <Button
               onClick={() => setShowGiveUpModal(false)}
